@@ -1,11 +1,13 @@
 {
   "name": "react-native-renavigate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React native navigation made easy using redux",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "test"
+    "test": "test",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
