@@ -1,6 +1,6 @@
 import React from 'react';
+import { RootSceneContainer } from 'react-native-renavigate';
 
-import RootSceneContainer from './src/RootSceneContainer';
 import routes from './routes';
 
 const posts = [

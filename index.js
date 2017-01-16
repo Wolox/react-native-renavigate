@@ -1,10 +1,7 @@
-import reducer from './src/reducer';
-import { actionCreators } from './src/actions';
-import RootSceneContainer from './src/RootSceneContainer';
+import reducerExport from './src/reducer';
+import { actionCreators as actionCreatorsExport } from './src/actions';
+import RootSceneContainerExport from './src/RootSceneContainer';
 
-
-export default {
-  reducer,
-  actionCreators,
-  RootSceneContainer
-};
+export const reducer = reducerExport;
+export const actionCreators = actionCreatorsExport;
+export const RootSceneContainer = RootSceneContainerExport;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
-
-import { actionCreators } from './src/actions';
+import { actionCreators } from 'react-native-renavigate';
 
 class PostDetailContainer extends Component {
 

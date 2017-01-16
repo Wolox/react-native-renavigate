@@ -3474,9 +3474,9 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-react-native-renavigate@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-renavigate/-/react-native-renavigate-0.0.1.tgz#42502cfbc834268c07fa20043ff86e3813ee661f"
+react-native-renavigate@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-renavigate/-/react-native-renavigate-0.0.2.tgz#61e07e8af937c233ea92c916c9d0e6ff78918768"
   dependencies:
     babel-cli "^6.18.0"
     react "^15.4.2"

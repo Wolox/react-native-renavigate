@@ -1,6 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-
-import navigation from '../src/reducer';
+import { reducer as navigation } from 'react-native-renavigate';
 
 const reducers = combineReducers({
   navigation
