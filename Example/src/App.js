@@ -1,5 +1,5 @@
 import React from 'react';
-import { RootSceneContainer } from 'react-native-renavigate';
+import { RootSceneContainer, TabsContainer } from 'react-native-renavigate';
 
 import routes from './routes';
 
@@ -20,11 +20,35 @@ const posts = [
     title: 'de Finibus Bonorum et Malorum 1.10.33'
   }
 ];
+//
+// export default function index() {
+//   return (
+//     <RootSceneContainer
+//       initialRoute={routes.LIST({ posts })}
+//       routes={routes}
+//     />
+//   );
+// }
 
-export default function index() {
+const tabs = [
+  {
+    label: 'posts1',
+    initialRoute: routes.LIST({ posts })
+  },
+  {
+    label: 'posts2',
+    initialRoute: routes.LIST({ posts })
+  },
+  {
+    label: 'posts3',
+    initialRoute: routes.LIST({ posts })
+  }
+];
+
+export default function app() {
   return (
-    <RootSceneContainer
-      initialRoute={routes.LIST({ posts })}
+    <TabsContainer
+      tabs={tabs}
       routes={routes}
     />
   );
