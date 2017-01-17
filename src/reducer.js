@@ -1,3 +1,4 @@
+import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import { actions } from './actions';
@@ -43,3 +44,14 @@ export default function reducer(state = defaultState, { type, payload }) {
     }
   }
 }
+
+const routePropType = React.PropTypes.shape({
+  name: React.PropTypes.string.isRequired,
+  params: React.PropTypes.object
+});
+
+export const propTypes = {
+  activeRoute: routePropType,
+  routes: React.PropTypes.arrayOf(routePropType),
+  method: React.PropTypes.string
+};

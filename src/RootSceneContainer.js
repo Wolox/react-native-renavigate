@@ -3,6 +3,7 @@ import { Navigator } from 'react-native';
 import { connect } from 'react-redux';
 
 import { initActions, actions } from './actions';
+import { propTypes as navigationPropTypes } from './reducer';
 import navigationBarRouteMapper from './navigationBarRouteMapper';
 
 class RootSceneContainer extends Component {
@@ -44,8 +45,7 @@ class RootSceneContainer extends Component {
   }
 
   renderScene = (route) => {
-    const RouteComponent = route.component;
-    return <RouteComponent {...route.params} />;
+    return this.props.decorateRouteComponent(route.component, route.params, route);
   }
 
   configureScene = (route) => {
@@ -65,18 +65,25 @@ class RootSceneContainer extends Component {
   }
 }
 
-// TODO: be more specific. !important
+const routeInstancePropType = React.PropTypes.shape({
+  component: React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.element
+  ]),
+  params: React.PropTypes.object
+});
+
 RootSceneContainer.propTypes = {
-  activeRoute: React.PropTypes.any,
+  activeRoute: navigationPropTypes.activeRoute,
   decorateRouteComponent: React.PropTypes.func.isRequired,
   defaultTransition: React.PropTypes.any.isRequired,
-  initialRoute: React.PropTypes.any.isRequired,
+  initialRoute: routeInstancePropType,
   navigationBar: React.PropTypes.func.isRequired,
-  routes: React.PropTypes.any.isRequired
+  routes: navigationPropTypes.routes
 };
 
 RootSceneContainer.defaultProps = {
-  decorateRouteComponent: (component) => component,
+  decorateRouteComponent: (RouteComponent, params) => <RouteComponent {...params} />,
   defaultTransition: Navigator.SceneConfigs.PushFromRight,
   navigationBar: (dispatch) => {
     return <Navigator.NavigationBar routeMapper={navigationBarRouteMapper(dispatch)} />;
@@ -84,7 +91,7 @@ RootSceneContainer.defaultProps = {
 };
 
 RootSceneContainer.childContextTypes = {
-  activeRouteInstance: React.PropTypes.any.isRequired
+  activeRouteInstance: routeInstancePropType.isRequired
 };
 
 const mapStateToProps = (store) => {
