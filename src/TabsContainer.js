@@ -7,6 +7,11 @@ import { actionCreators } from './actions';
 
 class TabsContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    props.dispatch(actionCreators.initTabs(props.tabs.length));
+  }
+
   getTabsComponent(tabs) {
     return (
       <ScrollableTabView
@@ -28,6 +33,7 @@ class TabsContainer extends Component {
         tabLabel={tab.label}
         tabIndex={index}
         initialRoute={tab.initialRoute}
+        routes={this.props.routes}
       />
     );
   }

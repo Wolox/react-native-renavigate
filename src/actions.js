@@ -4,7 +4,8 @@ export const actions = {
   POP: 'pop',
   POP_TO_TOP: 'popToTop',
   RESET_TO: 'resetTo',
-  TAB_CHANGED: 'tabChanged'
+  TAB_CHANGED: 'tabChanged',
+  INIT_TABS: 'initTabs'
 };
 
 export const actionCreators = {
@@ -12,7 +13,8 @@ export const actionCreators = {
   resetTo: {},
   pop: () => ({ type: actions.POP }),
   popToTop: () => ({ type: actions.POP_TO_TOP }),
-  tabChanged: (tabIndex) => ({ type: actions.TAB_CHANGED, payload: { tabIndex } })
+  tabChanged: (tabIndex) => ({ type: actions.TAB_CHANGED, payload: { tabIndex } }),
+  initTabs: (tabsCount) => ({ type: actions.INIT_TABS, payload: { tabsCount } })
 };
 
 // TODO: recibir dispatch y usar bindActionsCreators

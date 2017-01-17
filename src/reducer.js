@@ -5,15 +5,21 @@ import { actions } from './actions';
 
 // ver como inicializar activeTabIndex
 const defaultState = Immutable({
-  activeTabIndex: null
+  activeTabIndex: null,
+  [null]: {
+    routes: [],
+    activeRoute: null,
+    method: null
+  }
 });
 
 export default function reducer(state = defaultState, { type, payload }) {
   switch (type) {
     case actions.PUSH: {
+      const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routes: [...state.routes, state.activeRoute],
+          routes: [...tabState.routes, tabState.activeRoute],
           activeRoute: payload.route,
           method: type
         }
@@ -29,22 +35,35 @@ export default function reducer(state = defaultState, { type, payload }) {
       });
     }
     case actions.POP: {
+      const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routes: state.routes.slice(0, -2),
-          activeRoute: state.routes.length > 0 ? state.routes.slice(-1)[0] : state.activeRoute,
+          routes: tabState.routes.slice(0, -2),
+          activeRoute: tabState.routes.length > 0 ? tabState.routes.slice(-1)[0] : tabState.activeRoute,
           method: type
         }
       });
     }
     case actions.POP_TO_TOP: {
+      const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
           routes: [],
-          activeRoute: state.routes.length > 0 ? state.routes[0] : state.activeRoute,
+          activeRoute: tabState.routes.length > 0 ? tabState.routes[0] : tabState.activeRoute,
           method: type
         }
       });
+    }
+    case actions.INIT_TABS: {
+      const tabsState = {};
+      for (let tabIndex = 0; tabIndex < payload.tabsCount; tabIndex++) {
+        tabsState[tabIndex] = {
+          routes: [],
+          activeRoute: null,
+          method: null
+        };
+      }
+      return state.merge(tabsState);
     }
     case actions.TAB_CHANGED: {
       return state.merge({
