@@ -52,6 +52,6 @@ const routePropType = React.PropTypes.shape({
 
 export const propTypes = {
   activeRoute: routePropType,
-  routes: React.PropTypes.arrayOf(routePropType),
+  routes: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   method: React.PropTypes.string
 };
