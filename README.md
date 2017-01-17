@@ -1,6 +1,40 @@
 # React native renavigate
 
-React native navigation made easy using redux
+#### React native navigation made easy using redux
+
+`renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
+
+## Installation
+
+#### npm
+```bash
+npm install --save react-native-renavigate
+```
+
+#### yarn
+```bash
+yarn add react-native-renavigate
+```
+
+## Getting started
+
+#### 1- Declare your routes
+
+
+#### 2- Mount the root scene
+
+###### * Using tabs
+Uses react-native-scrollable-tab-view. Easy to change
+
+#### 3- Navigate!
+
+dispatch & actions!
+
+## Time travel debugging
+
+## Docs & Help
+- Examples
+- API
 
 ## License
 
