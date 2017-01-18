@@ -5,6 +5,14 @@ import { actionCreators } from 'react-native-renavigate';
 
 class PostDetailContainer extends Component {
 
+  componentDidMount() {
+    console.log('mount detail');
+  }
+
+  componentWillUnmount() {
+    console.log('unmount detail');
+  }
+
   backToList = () => {
     this.props.dispatch(actionCreators.pop());
   }
