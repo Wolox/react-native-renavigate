@@ -10,14 +10,15 @@ class TabsContainer extends Component {
 
   constructor(props) {
     super(props);
-    props.dispatch(actionCreators.initTabs(props.tabs.length, props.initialTab));
+    this.initialTab = props.activeTabIndex || props.initialTab;
+    props.dispatch(actionCreators.initTabs(props.tabs.length, this.initialTab));
   }
 
   getTabsComponent(tabs) {
     return (
       <ScrollableTabView
         onChangeTab={this.handleTabChanged}
-        initialPage={this.props.initialTab}
+        initialPage={this.initialTab}
       >
         {
           tabs.map((tab, index) => {
@@ -54,14 +55,21 @@ TabsContainer.defaultProps = {
 };
 
 TabsContainer.propTypes = {
+  activeTabIndex: React.PropTypes.number,
+  initialTab: React.PropTypes.number.isRequired,
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       initialRoute: navigationPropTypes.initialRoute,
       label: React.PropTypes.string.isRequired
     }).isRequired
-  ).isRequired,
-  initialTab: React.PropTypes.number.isRequired
+  ).isRequired
 };
 
-export default connect()(TabsContainer);
+const mapStateToProps = (store) => {
+  return {
+    activeTabIndex: store.navigation.activeTabIndex
+  };
+};
+
+export default connect(mapStateToProps)(TabsContainer);

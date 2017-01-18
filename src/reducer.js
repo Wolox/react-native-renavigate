@@ -55,6 +55,11 @@ export default function reducer(state = defaultState, { type, payload }) {
       });
     }
     case actions.INIT_TABS: {
+      if (Number.isInteger(state.activeTabIndex)) {
+        // in android. the init_tabs action is fired whenever the app restores from the background but we
+        // only want to handle the first dispatch of this action.
+        return state;
+      }
       const tabsState = {};
       for (let tabIndex = 0; tabIndex < payload.tabsCount; tabIndex++) {
         tabsState[tabIndex] = {

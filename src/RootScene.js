@@ -13,7 +13,18 @@ export default class RootScene extends Component {
 
   constructor(props) {
     super(props);
-    initActions(props.routeDefs); // TODO: esto va a pisar el resto? no permitir rutas con el mismo nombre!
+    initActions(props.routeDefs);
+
+    const restoredRouteStack = this.props.routeStack
+                                       .filter((route) => !!route)
+                                       .map(({ name, params }) => this.props.routeDefs[name](params));
+
+    this.initialRouteStack = [this.props.initialRoute].concat(restoredRouteStack);
+
+    if (this.props.activeRoute) {
+      const { name: restoredRouteName, params: restoredRouteParams } = this.props.activeRoute;
+      this.initialRouteStack.push(this.props.routeDefs[restoredRouteName](restoredRouteParams));
+    }
   }
 
   getChildContext() {
@@ -21,6 +32,7 @@ export default class RootScene extends Component {
   }
 
   componentWillReceiveProps({ activeRoute, navigationMethod }) {
+
     if (this.props.activeRoute !== activeRoute) {
       const navigator = this.getNavigator();
       if (navigationMethod === actions.POP || navigationMethod === actions.POP_TO_TOP) {
@@ -29,6 +41,11 @@ export default class RootScene extends Component {
         navigator[navigationMethod](this.props.routeDefs[activeRoute.name](activeRoute.params));
       }
     }
+  }
+
+  shouldComponentUpdate() {
+    // just call render when mounting the component. then it is not needed.
+    return !this.getNavigator();
   }
 
   getNavigator() {
@@ -55,7 +72,7 @@ export default class RootScene extends Component {
     return (
       <Navigator
         ref={RootScene.refs.navigatorComponent}
-        initialRoute={this.props.initialRoute}
+        initialRouteStack={this.initialRouteStack}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
         navigationBar={this.props.navigationBar(this.props.dispatch)}
@@ -79,7 +96,8 @@ RootScene.propTypes = {
   initialRoute: routeInstancePropType,
   navigationBar: React.PropTypes.func.isRequired,
   navigationMethod: navigationPropTypes.method, // from store
-  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired
+  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
+  routeStack: navigationPropTypes.routeStack
 };
 
 RootScene.defaultProps = {

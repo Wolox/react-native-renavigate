@@ -25,10 +25,7 @@ class RootSceneContainer extends Component {
 
   render() {
     return (
-      <RootScene
-        activeRoute={this.props.activeRoute}
-        navigationMethod={this.props.navigationMethod}
-      />
+      <RootScene {...this.props} />
     );
   }
 }
