@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import TabContainer from './TabContainer';
 import { actionCreators } from './actions';
+import { propTypes as navigationPropTypes } from './reducer';
 
 class TabsContainer extends Component {
 
@@ -49,14 +50,13 @@ class TabsContainer extends Component {
 
 
 TabsContainer.propTypes = {
-  routes: TabContainer.propTypes.routes,
+  routes: navigationPropTypes.routes,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      initialRoute: TabContainer.propTypes.initialRoute,
+      initialRoute: navigationPropTypes.initialRoute,
       label: React.PropTypes.string.isRequired
     }).isRequired
-  ).isRequired,
-  ...ScrollableTabView.propTypes
+  ).isRequired
 };
 
 export default connect()(TabsContainer);
