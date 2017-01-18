@@ -63,7 +63,10 @@ export default function reducer(state = defaultState, { type, payload }) {
           method: null
         };
       }
-      return state.merge(tabsState);
+      return state.merge({
+        ...tabsState,
+        activeTabIndex: payload.initialTab
+      });
     }
     case actions.TAB_CHANGED: {
       return state.merge({
