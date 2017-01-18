@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { RootSceneContainer } from 'react-native-renavigate';
 
 import store from './store';
-import routes from './routes';
+import routeDefs from './routes';
 
 const posts = [
   {
@@ -31,8 +31,8 @@ export default function index() {
   return (
     <Provider store={store}>
       <RootSceneContainer
-      initialRoute={routes.LIST({ posts })}
-      routes={routes}
+      initialRoute={routeDefs.LIST({ posts })}
+      routeDefs={routeDefs}
       />
     </Provider>
   );

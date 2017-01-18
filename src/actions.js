@@ -18,11 +18,11 @@ export const actionCreators = {
 };
 
 // TODO: recibir dispatch y usar bindActionsCreators
-export function initActions(routes) {
+export function initActions(routeDefs) {
 
   const routePayload = (name, params) => ({ route: { name, params } });
 
-  const routeNames = Object.keys(routes);
+  const routeNames = Object.keys(routeDefs);
   for (const routeName of routeNames) {
     actionCreators.push[routeName] = (params) => {
       return {

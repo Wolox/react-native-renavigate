@@ -7,7 +7,7 @@ import { actions } from './actions';
 const defaultState = Immutable({
   activeTabIndex: null,
   [null]: {
-    routes: [],
+    routeStack: [],
     activeRoute: null,
     method: null
   }
@@ -19,7 +19,7 @@ export default function reducer(state = defaultState, { type, payload }) {
       const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routes: [...tabState.routes, tabState.activeRoute],
+          routeStack: [...tabState.routeStack, tabState.activeRoute],
           activeRoute: payload.route,
           method: type
         }
@@ -28,7 +28,7 @@ export default function reducer(state = defaultState, { type, payload }) {
     case actions.RESET_TO: {
       return state.merge({
         [state.activeTabIndex]: {
-          routes: [],
+          routeStack: [],
           activeRoute: payload.route,
           method: type
         }
@@ -38,8 +38,8 @@ export default function reducer(state = defaultState, { type, payload }) {
       const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routes: tabState.routes.slice(0, -2),
-          activeRoute: tabState.routes.length > 0 ? tabState.routes.slice(-1)[0] : tabState.activeRoute,
+          routeStack: tabState.routeStack.slice(0, -2),
+          activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack.slice(-1)[0] : tabState.activeRoute,
           method: type
         }
       });
@@ -48,8 +48,8 @@ export default function reducer(state = defaultState, { type, payload }) {
       const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routes: [],
-          activeRoute: tabState.routes.length > 0 ? tabState.routes[0] : tabState.activeRoute,
+          routeStack: [],
+          activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack[0] : tabState.activeRoute,
           method: type
         }
       });
@@ -58,7 +58,7 @@ export default function reducer(state = defaultState, { type, payload }) {
       const tabsState = {};
       for (let tabIndex = 0; tabIndex < payload.tabsCount; tabIndex++) {
         tabsState[tabIndex] = {
-          routes: [],
+          routeStack: [],
           activeRoute: null,
           method: null
         };
@@ -86,7 +86,7 @@ const routePropType = React.PropTypes.shape({
 
 export const propTypes = {
   activeRoute: routePropType,
-  routes: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired, // este está mal acá. confunde. pasarlo derecho al rootscene
+  routeStack: React.PropTypes.arrayOf(routePropType).isRequired,
   method: React.PropTypes.string,
   activeTabIndex(props, propName) {
     const value = props[propName];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabsContainer } from 'react-native-renavigate';
 
-import routes from './routes';
+import routeDefs from './routes';
 
 /* eslint-disable max-len */
 const posts = [
@@ -26,15 +26,15 @@ const posts = [
 const tabs = [
   {
     label: 'posts1',
-    initialRoute: routes.LIST({ posts })
+    initialRoute: routeDefs.LIST({ posts })
   },
   {
     label: 'posts2',
-    initialRoute: routes.LIST({ posts })
+    initialRoute: routeDefs.LIST({ posts })
   },
   {
     label: 'posts3',
-    initialRoute: routes.LIST({ posts })
+    initialRoute: routeDefs.LIST({ posts })
   }
 ];
 
@@ -42,7 +42,7 @@ export default function app() {
   return (
     <TabsContainer
       tabs={tabs}
-      routes={routes}
+      routeDefs={routeDefs}
     />
   );
 }

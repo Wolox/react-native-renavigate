@@ -1,7 +1,7 @@
 import React from 'react';
 import { RootSceneContainer } from 'react-native-renavigate';
 
-import routes from './routes';
+import routeDefs from './routes';
 
 /* eslint-disable max-len */
 const posts = [
@@ -27,8 +27,8 @@ const posts = [
 export default function index() {
   return (
     <RootSceneContainer
-      initialRoute={routes.LIST({ posts })}
-      routes={routes}
+      initialRoute={routeDefs.LIST({ posts })}
+      routeDefs={routeDefs}
     />
   );
 }

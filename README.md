@@ -31,7 +31,7 @@ yarn add react-native-renavigate
 #### 1- Declare your routes
 
 ```js
-const routes = {
+const routeDefs = {
   POST_DETAIL: (post) => ({
     component: PostDetailContainer,
     params: {
@@ -57,15 +57,15 @@ All your route definition functions must be contained in an object where each ke
 import { RootSceneContainer } from 'react-native-renavigate';
 
 import store from './store';
-import routes from './routes';
+import routeDefs from './routes';
 import posts from './posts.json';
 
 export default function index() {
   return (
     <Provider store={store}>
       <RootSceneContainer
-        initialRoute={routes.POSTS_LIST({ posts })}
-        routes={routes}
+        initialRoute={routeDefs.POSTS_LIST({ posts })}
+        routeDefs={routeDefs}
       />
     </Provider>
   );
@@ -82,15 +82,15 @@ The tabs definition must follow the following format:
 const tabs = [
   {
     label: 'First tab',
-    initialRoute: routes.FIRST_TAB_INITIAL_ROUTE()
+    initialRoute: routeDefs.FIRST_TAB_INITIAL_ROUTE()
   },
   {
     label: 'Second tab',
-    initialRoute: routes.SECOND_TAB_INITIAL_ROUTE()
+    initialRoute: routeDefs.SECOND_TAB_INITIAL_ROUTE()
   },
   {
     label: 'Another tab',
-    initialRoute: routes.ANOTHER_TAB_INITIAL_ROUTE()
+    initialRoute: routeDefs.ANOTHER_TAB_INITIAL_ROUTE()
   }
 ];
 ```
@@ -100,7 +100,7 @@ Then, use them as prop of the root component. This time, we will use `TabsContai
 import { TabsContainer } from 'react-native-renavigate';
 
 import store from './store';
-import routes from './routes';
+import routeDefs from './routes';
 import tabs from './tabs';
 
 export default function index() {
@@ -108,7 +108,7 @@ export default function index() {
     <Provider store={store}>
       <TabsContainer
         tabs={tabs}
-        routes={routes}
+        routeDefs={routeDefs}
       />
     </Provider>
   );

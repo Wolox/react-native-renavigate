@@ -13,7 +13,7 @@ export default class RootScene extends Component {
 
   constructor(props) {
     super(props);
-    initActions(props.routes); // TODO: esto va a pisar el resto? no permitir rutas con el mismo nombre!
+    initActions(props.routeDefs); // TODO: esto va a pisar el resto? no permitir rutas con el mismo nombre!
   }
 
   getChildContext() {
@@ -26,7 +26,7 @@ export default class RootScene extends Component {
       if (navigationMethod === actions.POP || navigationMethod === actions.POP_TO_TOP) {
         navigator[navigationMethod]();
       } else if (navigationMethod === actions.PUSH || navigationMethod === actions.RESET_TO) {
-        navigator[navigationMethod](this.props.routes[activeRoute.name](activeRoute.params));
+        navigator[navigationMethod](this.props.routeDefs[activeRoute.name](activeRoute.params));
       }
     }
   }
@@ -78,7 +78,7 @@ RootScene.propTypes = {
   defaultTransition: React.PropTypes.any.isRequired,
   initialRoute: routeInstancePropType,
   navigationBar: React.PropTypes.func.isRequired,
-  routes: navigationPropTypes.routes
+  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired
 };
 
 RootScene.defaultProps = {

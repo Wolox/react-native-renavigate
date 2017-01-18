@@ -35,7 +35,7 @@ class TabsContainer extends Component {
         tabLabel={tab.label}
         tabIndex={index}
         initialRoute={tab.initialRoute}
-        routes={this.props.routes}
+        routeDefs={this.props.routeDefs}
       />
     );
   }
@@ -54,7 +54,7 @@ TabsContainer.defaultProps = {
 };
 
 TabsContainer.propTypes = {
-  routes: navigationPropTypes.routes,
+  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       initialRoute: navigationPropTypes.initialRoute,
