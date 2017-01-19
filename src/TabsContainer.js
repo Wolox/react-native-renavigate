@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
+import { Navigator } from 'react-native';
 
 import TabContainer from './TabContainer';
 import { actionCreators } from './actions';
@@ -17,9 +18,9 @@ class TabsContainer extends Component {
   getTabsComponent(tabs) {
     return (
       <ScrollableTabView
+        {...this.props.tabsComponentProps}
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
-        {...this.props.tabsComponentProps}
       >
         {
           tabs.map((tab, index) => {
@@ -38,11 +39,18 @@ class TabsContainer extends Component {
         tabIndex={index}
         initialRoute={tab.initialRoute}
         routeDefs={this.props.routeDefs}
+        decorateRouteComponent={this.props.decorateRouteComponent}
+        navigationBar={this.props.navigationBar}
+        navigationBarStyle={this.props.navigationBarStyle}
+        navigationStyles={this.props.navigationStyles}
       />
     );
   }
 
   handleTabChanged = ({ i }) => {
+    if (this.props.tabsComponentProps.onChangeTab) {
+      this.props.tabsComponentProps.onChangeTab({ i });
+    }
     this.props.dispatch(actionCreators.tabChanged(i));
   }
 
@@ -58,7 +66,12 @@ TabsContainer.defaultProps = {
 
 TabsContainer.propTypes = {
   activeTabIndex: React.PropTypes.number,
+  defaultTransition: React.PropTypes.any,
+  decorateRouteComponent: React.PropTypes.func,
   initialTab: React.PropTypes.number.isRequired,
+  navigationBar: React.PropTypes.func,
+  navigationBarStyle: React.PropTypes.func,
+  navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
