@@ -38,7 +38,7 @@ export default function reducer(state = defaultState, { type, payload }) {
       const tabState = state[state.activeTabIndex];
       return state.merge({
         [state.activeTabIndex]: {
-          routeStack: tabState.routeStack.slice(0, -2),
+          routeStack: tabState.routeStack.slice(0, -1),
           activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack.slice(-1)[0] : tabState.activeRoute,
           method: type
         }
