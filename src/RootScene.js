@@ -28,7 +28,7 @@ export default class RootScene extends Component {
   }
 
   getChildContext() {
-    return { activeRouteInstance: this.getCurrentRoute() || this.props.initialRoute };
+    return { activeRouteInstance: this.getCurrentRoute() };
   }
 
   componentWillReceiveProps({ activeRoute, navigationMethod }) {
@@ -43,9 +43,9 @@ export default class RootScene extends Component {
     }
   }
 
-  shouldComponentUpdate() {
-    // just call render when mounting the component. then it is not needed.
-    return !this.getNavigator();
+  shouldComponentUpdate(nextProps) {
+    // only update if active route changes
+    return nextProps.activeRoute !== this.props.activeRoute;
   }
 
   getNavigator() {
@@ -55,7 +55,7 @@ export default class RootScene extends Component {
   getCurrentRoute() {
     const navigator = this.getNavigator();
     if (!navigator || !navigator.navigationContext) {
-      return null;
+      return this.props.initialRoute;
     }
     return navigator.navigationContext.currentRoute;
   }
@@ -69,13 +69,17 @@ export default class RootScene extends Component {
   }
 
   render() {
+    const navigationBarProps = {
+      navigationStyles: this.props.navigationStyles,
+      style: this.props.navigationBarStyle(this.getCurrentRoute())
+    };
     return (
       <Navigator
         ref={RootScene.refs.navigatorComponent}
         initialRouteStack={this.initialRouteStack}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
-        navigationBar={this.props.navigationBar(this.props.dispatch)}
+        navigationBar={this.props.navigationBar(this.props.dispatch, navigationBarProps)}
       />
     );
   }
@@ -86,7 +90,10 @@ const routeInstancePropType = React.PropTypes.shape({
     React.PropTypes.func,
     React.PropTypes.element
   ]),
-  params: React.PropTypes.object
+  leftButton: React.PropTypes.func,
+  params: React.PropTypes.object,
+  rightButton: React.PropTypes.func,
+  title: React.PropTypes.func
 });
 
 RootScene.propTypes = {
@@ -95,6 +102,8 @@ RootScene.propTypes = {
   defaultTransition: React.PropTypes.any.isRequired,
   initialRoute: routeInstancePropType,
   navigationBar: React.PropTypes.func.isRequired,
+  navigationBarStyle: React.PropTypes.func.isRequired,
+  navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
   navigationMethod: navigationPropTypes.method, // from store
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   routeStack: navigationPropTypes.routeStack
@@ -103,8 +112,16 @@ RootScene.propTypes = {
 RootScene.defaultProps = {
   decorateRouteComponent: (RouteComponent, params) => <RouteComponent {...params} />,
   defaultTransition: Navigator.SceneConfigs.PushFromRight,
-  navigationBar: (dispatch) => {
-    return <Navigator.NavigationBar routeMapper={navigationBarRouteMapper(dispatch)} />;
+  navigationBar: (dispatch, props) => {
+    return (
+      <Navigator.NavigationBar
+        routeMapper={navigationBarRouteMapper(dispatch)}
+        {...props}
+      />
+    );
+  },
+  navigationBarStyle: (route) => {
+    return route && route.navBarStyles;
   }
 };
 
