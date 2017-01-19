@@ -19,6 +19,7 @@ class TabsContainer extends Component {
       <ScrollableTabView
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
+        {...this.props.tabsComponentProps}
       >
         {
           tabs.map((tab, index) => {
@@ -51,7 +52,8 @@ class TabsContainer extends Component {
 }
 
 TabsContainer.defaultProps = {
-  initialTab: 0
+  initialTab: 0,
+  tabsComponentProps: {}
 };
 
 TabsContainer.propTypes = {
@@ -63,7 +65,8 @@ TabsContainer.propTypes = {
       initialRoute: navigationPropTypes.initialRoute,
       label: React.PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired
 };
 
 const mapStateToProps = (store) => {

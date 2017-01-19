@@ -39,8 +39,12 @@ const tabs = [
 ];
 
 export default function app() {
+  const scrollableTabsProps = {
+    tabBarPosition: 'bottom'
+  };
   return (
     <TabsContainer
+      tabsComponentProps={scrollableTabsProps}
       tabs={tabs}
       routeDefs={routeDefs}
     />
