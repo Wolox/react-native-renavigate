@@ -1,6 +1,6 @@
 {
   "name": "react-native-renavigate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React native navigation made easy using redux",
   "main": "lib/index.js",
   "scripts": {
@@ -29,7 +29,6 @@
   "homepage": "https://github.com/wolox/react-native-renavigate#readme",
   "dependencies": {
     "react": "^15.4.2",
-    "react-native": "^0.40.0",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
@@ -40,5 +39,8 @@
     "babel-eslint": "^7.1.1",
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.9.0"
+  },
+  "peerDependencies": {
+    "react-native": "^0.40.0"
   }
 }
