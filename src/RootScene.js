@@ -15,6 +15,8 @@ export default class RootScene extends Component {
     super(props);
     initActions(props.routeDefs);
 
+    let currentRoute = this.props.initialRoute;
+
     const restoredRouteStack = this.props.routeStack
                                        .filter((route) => !!route)
                                        .map(({ name, params }) => this.props.routeDefs[name](params));
@@ -23,22 +25,30 @@ export default class RootScene extends Component {
 
     if (this.props.activeRoute) {
       const { name: restoredRouteName, params: restoredRouteParams } = this.props.activeRoute;
-      this.initialRouteStack.push(this.props.routeDefs[restoredRouteName](restoredRouteParams));
+      currentRoute = this.props.routeDefs[restoredRouteName](restoredRouteParams);
+      this.initialRouteStack.push(currentRoute);
     }
+
+    this.state = { currentRoute };
   }
 
   getChildContext() {
-    return { activeRouteInstance: this.getCurrentRoute() };
+    return { activeRouteInstance: this.state.currentRoute };
   }
 
   componentWillReceiveProps({ activeRoute, navigationMethod }) {
 
     if (this.props.activeRoute !== activeRoute) {
+      const currentRoute = activeRoute
+        ? this.props.routeDefs[activeRoute.name](activeRoute.params)
+        : this.props.initialRoute;
+      this.setState({ currentRoute });
+
       const navigator = this.getNavigator();
       if (navigationMethod === actions.POP || navigationMethod === actions.POP_TO_TOP) {
         navigator[navigationMethod]();
       } else if (navigationMethod === actions.PUSH || navigationMethod === actions.RESET_TO) {
-        navigator[navigationMethod](this.props.routeDefs[activeRoute.name](activeRoute.params));
+        navigator[navigationMethod](currentRoute);
       }
     }
   }
@@ -52,14 +62,6 @@ export default class RootScene extends Component {
     return this.refs[RootScene.refs.navigatorComponent];
   }
 
-  getCurrentRoute() {
-    const navigator = this.getNavigator();
-    if (!navigator || !navigator.navigationContext) {
-      return this.props.initialRoute;
-    }
-    return navigator.navigationContext.currentRoute;
-  }
-
   renderScene = (route) => {
     return this.props.decorateRouteComponent(route.component, route.params, route);
   }
@@ -71,7 +73,7 @@ export default class RootScene extends Component {
   render() {
     const navigationBarProps = {
       navigationStyles: this.props.navigationStyles,
-      style: this.props.navigationBarStyle(this.getCurrentRoute())
+      style: this.props.navigationBarStyle(this.state.currentRoute)
     };
     return (
       <Navigator
