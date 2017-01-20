@@ -2,7 +2,7 @@
 
 #### React native navigation made easy using redux
 
-`renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
+`renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of react native's [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
 
 ## TL;DR
 Check the quick start [example](Example/README.md)
@@ -15,7 +15,7 @@ Check the quick start [example](Example/README.md)
 If you are used to handling your routes with react native's default navigator and also like using redux, you will love renavigate. This library will keep your app's component structure simple and make your transitions much easier to accomplish transforming the [Navigator API](https://facebook.github.io/react-native/docs/navigator.html#methods) into redux actions.  
 Last but not least, navigation related components like tab bar and navigation bar are easily pluggable and customizable.
 
-### Installation
+## Installation
 
 #### npm
 ```bash
@@ -26,7 +26,7 @@ npm install --save react-native-renavigate
 ```bash
 yarn add react-native-renavigate
 ```
-### Getting started
+## Getting started
 
 #### 1- Declare your routes
 
@@ -126,7 +126,7 @@ import { reducer as renavigateReducer } from 'react-native-renavigate';
 
 const reducers = {
   // ... your other reducers here ...
-  renavigate: renavigateReducer     // <---- Mounted at 'renavigate'
+  navigation: renavigateReducer     // <---- Mounted at 'navigation'
 }
 const reducer = combineReducers(reducers)
 const store = createStore(reducer)
@@ -168,13 +168,11 @@ class MyComponent extends Component {
 - Tests
 - Test time travel debugging
 - Add more examples
-- Handle android back button
 - Improve docs about styling and customizing navbar and tabbar
 - Docs about customizing or replacing scrollable-tab-view
 - Refactor readme: Include Docs & Help section with examples and API doc.
 - Support all navigation methods
 - Hiding tabbar
-- Refactor actionsCreators import to just actions. use bindActionCreators from redux.
 
 
 ## License

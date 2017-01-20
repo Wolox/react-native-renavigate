@@ -17,7 +17,6 @@ export const actionCreators = {
   initTabs: (tabsCount, initialTab) => ({ type: actions.INIT_TABS, payload: { tabsCount, initialTab } })
 };
 
-// TODO: recibir dispatch y usar bindActionsCreators
 export function initActions(routeDefs) {
 
   const routePayload = (name, params) => ({ route: { name, params } });

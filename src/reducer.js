@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 
 import { actions } from './actions';
 
-// ver como inicializar activeTabIndex
 const defaultState = Immutable({
   activeTabIndex: null,
   [null]: {
