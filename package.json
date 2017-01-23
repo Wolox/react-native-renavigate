@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "test",
+    "test": "jest",
     "build": "babel index.js -d lib && babel src -d lib/src",
     "prepublish": "npm run build"
   },
@@ -27,6 +27,9 @@
     "url": "https://github.com/wolox/react-native-renavigate/issues"
   },
   "homepage": "https://github.com/wolox/react-native-renavigate#readme",
+  "jest": {
+    "testPathIgnorePatterns": ["/node_modules/", "/Examples"]
+  },
   "dependencies": {
     "react-native-scrollable-tab-view": "^0.6.0",
     "seamless-immutable": "^7.0.1"
@@ -34,9 +37,11 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
     "babel-preset-react-native": "^1.9.1",
     "eslint": "^3.13.1",
-    "eslint-plugin-react": "^6.9.0"
+    "eslint-plugin-react": "^6.9.0",
+    "jest": "^18.1.0"
   },
   "peerDependencies": {
     "react-native": "^0.40.0",
