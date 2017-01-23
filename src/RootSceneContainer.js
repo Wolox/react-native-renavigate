@@ -31,9 +31,9 @@ class RootSceneContainer extends Component {
 }
 
 RootSceneContainer.propTypes = {
-  activeRoute: navigationPropTypes.activeRoute,
-  navigationMethod: navigationPropTypes.method,
-  routeStack: navigationPropTypes.routeStack
+  activeRoute: navigationPropTypes.activeRoute, // from store
+  navigationMethod: navigationPropTypes.method, // from store
+  routeStack: navigationPropTypes.routeStack // from store
 };
 
 const mapStateToProps = (store) => {
