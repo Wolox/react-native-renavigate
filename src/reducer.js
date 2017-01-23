@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 
 import { actions } from './actions';
 
-const defaultState = Immutable({
+export const defaultState = Immutable({
   activeTabIndex: null,
   [null]: {
     routeStack: [],
