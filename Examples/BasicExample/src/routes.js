@@ -1,13 +1,12 @@
-import PostDetailContainer from './PostDetailContainer';
-import PostListContainer from './PostListContainer';
+import PostsList from './PostsList';
+import PostDetail from './PostDetail';
 
 export default {
-  DETAIL: (params) => ({
-    component: PostDetailContainer,
-    params
+  DETAIL: (post) => ({
+    component: PostDetail,
+    params: { post }
   }),
-  LIST: (params) => ({
-    component: PostListContainer,
-    params
+  LIST: () => ({
+    component: PostsList
   })
 };

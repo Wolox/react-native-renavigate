@@ -8,9 +8,6 @@
 
 `renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of react native's [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
 
-## TL;DR
-Check the quick start [example](Examples/BasicExample)
-
 ## Prerequisites
 - redux
 - react-redux
@@ -19,12 +16,12 @@ Check the quick start [example](Examples/BasicExample)
 If you are used to handling your routes with react native's default navigator and also like using redux, you will love renavigate. This library will keep your app's component structure simple and make your transitions much easier to accomplish transforming the [Navigator API](https://facebook.github.io/react-native/docs/navigator.html#methods) into redux actions.  
 Last but not least, navigation related components like tab bar and navigation bar are easily pluggable and customizable.
 
-
 ## Docs & Help
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [API](docs/API.md)
 - Examples
+  - [Running the examples](Examples)
   - [Basic Usage](Examples/BasicExample)
   - [Using tabs](Examples/TabsExample)
   - [Customizing TabBar](Examples/CustomTabBar)
