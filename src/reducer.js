@@ -35,10 +35,13 @@ export default function reducer(state = defaultState, { type, payload }) {
     }
     case actions.POP: {
       const tabState = state[state.activeTabIndex];
+      const nextActiveRoute = tabState.routeStack.length > 0
+        ? tabState.routeStack.slice(-1)[0]
+        : tabState.activeRoute;
       return state.merge({
         [state.activeTabIndex]: {
           routeStack: tabState.routeStack.slice(0, -1),
-          activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack.slice(-1)[0] : tabState.activeRoute,
+          activeRoute: nextActiveRoute,
           method: type
         }
       });

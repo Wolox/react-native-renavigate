@@ -4,7 +4,7 @@
   "description": "React native navigation made easy using redux",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint src && eslint index.js",
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "babel index.js -d lib && babel src -d lib/src",
