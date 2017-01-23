@@ -5,6 +5,9 @@ import { actionCreators as navigationActions } from 'react-native-renavigate';
 import PostDetailContainer from './PostDetailContainer';
 import PostListContainer from './PostListContainer';
 
+const navButtonStyle = { padding: 5, color: 'blue' };
+const titleStyle = { fontWeight: 'bold' };
+
 export default {
   DETAIL: (params) => ({
     component: PostDetailContainer,
@@ -15,22 +18,22 @@ export default {
       };
       return (
         <TouchableOpacity onPress={goBack}>
-          <Text>Back</Text>
+          <Text style={navButtonStyle}>Back</Text>
         </TouchableOpacity>
       );
     },
     rightButton: () => {
-      return <Text>FAV</Text>;
+      return <Text style={navButtonStyle}>FAV</Text>;
     },
     title: () => {
-      return <Text>{ params.title }</Text>;
+      return <Text style={[navButtonStyle, titleStyle]}>{ params.title }</Text>;
     }
   }),
   LIST: (params) => ({
     component: PostListContainer,
     params,
-    navBarStyles: {
-      backgroundColor: 'blue'
+    title: () => {
+      return <Text style={[titleStyle, navButtonStyle]}>YOUR POSTS</Text>;
     }
   })
 };

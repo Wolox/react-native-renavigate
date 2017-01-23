@@ -16,7 +16,7 @@ class PostListContainer extends Component {
           this.props.posts.map((post) => {
             return (
               <TouchableOpacity
-                style={{ margin: 30, borderWidth: 1, borderColor: 'blue' }}
+                style={{ margin: 15, borderWidth: 1, borderColor: 'blue', padding: 8, borderRadius: 4 }}
                 key={post.id}
                 onPress={() => this.renderPostDetail(post)}
               >
