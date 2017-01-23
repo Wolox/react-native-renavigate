@@ -59,7 +59,7 @@ const routeDefs = {
 };
 ```
 
-Define each route in your app as a [function](docs/API.md#Route-definitions) that returns a [plain object that will represent it](docs/API.md#Route-instance).  
+Define each route in your app as a [function](docs/API.md#route-definitions) that returns a [plain object that will represent it](docs/API.md#route-instance).  
 All your route definition functions must be contained in an object where each key is the route name (this name will be used with the redux actions later).
 
 #### 2- Mount the root scene
@@ -83,7 +83,7 @@ export default function index() {
 }
 ```
 
-The [RootSceneContainer](docs/API.md#RootSceneContainer) component is our wrapper of react native Navigator, and will properly transform store changes into routes transitions. These store changes are triggered by renavigate actions, stay tunned!
+The [RootSceneContainer](docs/API.md#rootscenecontainer) component is our wrapper of react native Navigator, and will properly transform store changes into routes transitions. These store changes are triggered by renavigate actions, stay tunned!
 
 ###### * Using tabs
 Our root component will need the [tab definitions](docs/API.md#tab-definitions) to properly handle them.
@@ -104,7 +104,7 @@ const tabs = [
   }
 ];
 ```
-Then, use them as prop of the root component. This time, we will use [TabsContainer](docs/API.md#TabsContainer):
+Then, use them as prop of the root component. This time, we will use [TabsContainer](docs/API.md#tabscontainer):
 
 ```js
 import { TabsContainer } from 'react-native-renavigate';

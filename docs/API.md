@@ -2,13 +2,13 @@
 
 ## Table of contents
 
-- Components
-  - [RootSceneContainer](#RootSceneContainer)
-  - [TabsContainer](#TabsContainer)
-- Glossary
-  - [Route instance](#Route-instance)
-  - [Route definition](#Route-definitions)
-  - [Tab definition](#Tab-definitions)
+- [Components](#components)
+  - [RootSceneContainer](#rootscenecontainer)
+  - [TabsContainer](#tabscontainer)
+- [Glossary](#glossary)
+  - [Route instance](#route-instance)
+  - [Route definition](#route-definitions)
+  - [Tab definition](#tab-definitions)
 - [Actions](#actions)
 
 ## Components
