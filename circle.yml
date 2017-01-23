@@ -1,7 +1,12 @@
 machine:
   node:
     version: 6
+dependencies:
+  override:
+    - npm install
+    - npm install -g codecov
 test:
   override:
-    - npm run test
     - npm run lint
+    - npm run coverage
+    - codecov

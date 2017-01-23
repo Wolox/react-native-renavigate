@@ -36,7 +36,8 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js"
-    ]
+    ],
+    "coverageDirectory": "./coverage/"
   },
   "dependencies": {
     "react-native-scrollable-tab-view": "^0.6.0",
