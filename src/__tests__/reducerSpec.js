@@ -17,57 +17,244 @@ describe('#reducer', () => {
     initActions(routes);
   });
 
-  it('should return the initial state', () => {
+  it('should return the initial state if called without navigation actions', () => {
     expect(reducer(undefined, {})).toEqual(defaultState);
   });
 
-  it ('should handle a push action', () => {
-    const action = actionCreators.push.ROUTE_A({ routeParam: 4 });
+  describe('without tabs', () => {
+    describe('with empty route stack', () => {
+      it ('should handle a push action', () => {
+        const action = actionCreators.push.ROUTE_A({ routeParam: 4 });
 
-    const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
-    const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
+        const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
+        const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
 
-    const expectedState = defaultState.merge({
-      [defaultState.activeTabIndex]: {
-        activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-        method: 'push',
-        routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
-      }
+        const expectedState = defaultState.merge({
+          [defaultState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
+            method: 'push',
+            routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
+          }
+        });
+        expect(reducer(undefined, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a reset to action', () => {
+        const action = actionCreators.resetTo.ROUTE_A({ routeParam: 1 });
+
+        const expectedState = defaultState.merge({
+          [defaultState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
+            method: 'resetTo',
+            routeStack: []
+          }
+        });
+        expect(reducer(undefined, action)).toEqual(expectedState);
+      });
+
+      it ('pop actions should have no effect', () => {
+        const action = actionCreators.pop();
+
+        const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
+        const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
+
+        const expectedState = defaultState.merge({
+          [defaultState.activeTabIndex]: {
+            activeRoute: activeRouteBeforeAction,
+            method: 'pop',
+            routeStack: routeStackBeforeAction
+          }
+        });
+
+        expect(reducer(undefined, action)).toEqual(expectedState);
+      });
+
+      it ('pop to top actions should have no effect', () => {
+        const action = actionCreators.popToTop();
+
+        const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
+        const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
+
+        const expectedState = defaultState.merge({
+          [defaultState.activeTabIndex]: {
+            activeRoute: activeRouteBeforeAction,
+            method: 'popToTop',
+            routeStack: routeStackBeforeAction
+          }
+        });
+
+        expect(reducer(undefined, action)).toEqual(expectedState);
+      });
     });
-    expect(reducer(undefined, action)).toEqual(expectedState);
+
+    describe('with 1 route in the stack', () => {
+      let initialSpecState;
+      beforeEach(() => {
+        const action = actionCreators.push.ROUTE_C({ routeParam: 14 });
+        initialSpecState = reducer(undefined, action);
+      });
+
+      it ('should handle a push action', () => {
+        const action = actionCreators.push.ROUTE_A({ routeParam: 4 });
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+        const activeRouteBeforeAction = initialSpecState[initialSpecState.activeTabIndex].activeRoute;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
+            method: 'push',
+            routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
+          }
+        });
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a reset to action', () => {
+        const action = actionCreators.resetTo.ROUTE_A({ routeParam: 1 });
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
+            method: 'resetTo',
+            routeStack: []
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a pop action', () => {
+        const action = actionCreators.pop();
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: routeStackBeforeAction.slice(-1)[0],
+            method: 'pop',
+            routeStack: routeStackBeforeAction.slice(0, -1)
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a pop to top action', () => {
+        const action = actionCreators.popToTop();
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: routeStackBeforeAction[0],
+            method: 'popToTop',
+            routeStack: []
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+    });
+
+    describe('with multiple routes in the stack', () => {
+      let initialSpecState;
+      beforeEach(() => {
+        const action1 = actionCreators.push.ROUTE_C({ routeParam: 14 });
+        const action2 = actionCreators.push.ROUTE_B({ routeParam: 4 });
+        const action3 = actionCreators.push.ROUTE_C({ routeParam: 111 });
+        const action4 = actionCreators.push.ROUTE_C({ routeParam: 22 });
+        const action5 = actionCreators.push.ROUTE_A({ routeParam: 1 });
+        initialSpecState = reducer(undefined, action1);
+        initialSpecState = reducer(initialSpecState, action2);
+        initialSpecState = reducer(initialSpecState, action3);
+        initialSpecState = reducer(initialSpecState, action4);
+        initialSpecState = reducer(initialSpecState, action5);
+      });
+
+      it ('should handle a push action', () => {
+        const action = actionCreators.push.ROUTE_A({ routeParam: 4 });
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+        const activeRouteBeforeAction = initialSpecState[initialSpecState.activeTabIndex].activeRoute;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
+            method: 'push',
+            routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
+          }
+        });
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a reset to action', () => {
+        const action = actionCreators.resetTo.ROUTE_A({ routeParam: 1 });
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
+            method: 'resetTo',
+            routeStack: []
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a pop action', () => {
+        const action = actionCreators.pop();
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: routeStackBeforeAction.slice(-1)[0],
+            method: 'pop',
+            routeStack: routeStackBeforeAction.slice(0, -1)
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle several pop actions', () => {
+        const action = actionCreators.pop();
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: routeStackBeforeAction.slice(-4)[0],
+            method: 'pop',
+            routeStack: routeStackBeforeAction.slice(0, -4)
+          }
+        });
+
+        let stateAfterPop = reducer(initialSpecState, action);
+        stateAfterPop = reducer(stateAfterPop, action);
+        stateAfterPop = reducer(stateAfterPop, action);
+
+        expect(reducer(stateAfterPop, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a pop to top action', () => {
+        const action = actionCreators.popToTop();
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: routeStackBeforeAction[0],
+            method: 'popToTop',
+            routeStack: []
+          }
+        });
+
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+    });
   });
 
-  it ('pop actions with empty stacks should have no effect', () => {
-    const action = actionCreators.pop();
 
-    const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
-    const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
-
-    const expectedState = defaultState.merge({
-      [defaultState.activeTabIndex]: {
-        activeRoute: activeRouteBeforeAction,
-        method: 'pop',
-        routeStack: routeStackBeforeAction
-      }
-    });
-
-    expect(reducer(undefined, action)).toEqual(expectedState);
-  });
-
-  it ('pop to top actions with empty stacks should have no effect', () => {
-    const action = actionCreators.popToTop();
-
-    const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
-    const activeRouteBeforeAction = defaultState[defaultState.activeTabIndex].activeRoute;
-
-    const expectedState = defaultState.merge({
-      [defaultState.activeTabIndex]: {
-        activeRoute: activeRouteBeforeAction,
-        method: 'popToTop',
-        routeStack: routeStackBeforeAction
-      }
-    });
-
-    expect(reducer(undefined, action)).toEqual(expectedState);
-  });
 });
