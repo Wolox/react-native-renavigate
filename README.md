@@ -5,7 +5,7 @@
 `renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of react native's [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
 
 ## TL;DR
-Check the quick start [example](Example/README.md)
+Check the quick start [example](Examples/BasicExample)
 
 ## Prerequisites
 - redux
@@ -14,6 +14,16 @@ Check the quick start [example](Example/README.md)
 ## Preface
 If you are used to handling your routes with react native's default navigator and also like using redux, you will love renavigate. This library will keep your app's component structure simple and make your transitions much easier to accomplish transforming the [Navigator API](https://facebook.github.io/react-native/docs/navigator.html#methods) into redux actions.  
 Last but not least, navigation related components like tab bar and navigation bar are easily pluggable and customizable.
+
+
+## Docs & Help
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [API](docs/API.md)
+- Examples
+  - [Basic Usage](Examples/BasicExample)
+  - [Using tabs](Examples/TabsExample)
+  - [Customizing TabBar](Examples/CustomTabBar)
 
 ## Installation
 
@@ -26,6 +36,8 @@ npm install --save react-native-renavigate
 ```bash
 yarn add react-native-renavigate
 ```
+
+
 ## Getting started
 
 #### 1- Declare your routes
@@ -47,8 +59,7 @@ const routeDefs = {
 };
 ```
 
-Define each route in your app as a function that returns a plain object that will represent it. These objects should at least have one attribute named `component` that references the root component of the route (the `component` attribute is mandatory). The `param` attribute of the route object will be used as prop of the route component when mounting it.
-
+Define each route in your app as a [function](docs/API.md#Route-definitions) that returns a [plain object that will represent it](docs/API.md#Route-instance).  
 All your route definition functions must be contained in an object where each key is the route name (this name will be used with the redux actions later).
 
 #### 2- Mount the root scene
@@ -72,11 +83,10 @@ export default function index() {
 }
 ```
 
-The `RootSceneContainer` component is our wrapper of react native Navigator, and will properly transform store changes into routes transitions. These store changes are triggered by renavigate actions, stay tunned!
+The [RootSceneContainer](docs/API.md#RootSceneContainer) component is our wrapper of react native Navigator, and will properly transform store changes into routes transitions. These store changes are triggered by renavigate actions, stay tunned!
 
 ###### * Using tabs
-Our root component will need the tab definitions to properly handle them.
-The tabs definition must follow the following format:
+Our root component will need the [tab definitions](docs/API.md#tab-definitions) to properly handle them.
 
 ```js
 const tabs = [
@@ -94,7 +104,7 @@ const tabs = [
   }
 ];
 ```
-Then, use them as prop of the root component. This time, we will use `TabsContainer`:
+Then, use them as prop of the root component. This time, we will use [TabsContainer](docs/API.md#TabsContainer):
 
 ```js
 import { TabsContainer } from 'react-native-renavigate';
@@ -115,7 +125,7 @@ export default function index() {
 }
 ```
 
-renavigate uses [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view) out of the box to implement tabs, however this component can be easily replaced.
+renavigate uses [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view) out of the box to implement tabs.
 
 #### 3- Give the navigation reducer to redux
 Our root components will listen to store changes to trigger transitions, but first we need to add the renavigate reducer to the store.
@@ -133,7 +143,7 @@ const store = createStore(reducer)
 ```
 
 #### 4- Navigate!
-As mentioned before, `renavigate` transforms the Navigator API to redux actions so you can dispatch the following actions to trigger transitions.
+As mentioned before, `renavigate` transforms the Navigator API to redux [actions](docs/API.md#actions) so you can dispatch the following actions to trigger transitions.
 
 ```js
 import { actionCreators } from 'react-native-renavigate';
