@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
+    "coverage": "jest --coverage",
     "build": "babel index.js -d lib && babel src -d lib/src",
     "prepublish": "npm run build"
   },
@@ -28,7 +29,8 @@
   },
   "homepage": "https://github.com/wolox/react-native-renavigate#readme",
   "jest": {
-    "testPathIgnorePatterns": ["/node_modules/", "/Examples"]
+    "testPathIgnorePatterns": ["/node_modules/", "/Examples"],
+    "collectCoverageFrom": ["src/**/*.js"]
   },
   "dependencies": {
     "react-native-scrollable-tab-view": "^0.6.0",
