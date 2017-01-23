@@ -2,6 +2,14 @@ import React from 'react';
 import { TabsContainer } from 'react-native-renavigate';
 
 import routeDefs from './routes';
+import TabBar from './TabBar';
+
+import Tab1OnImg from './assets/tabbar_dashboard_on.png';
+import Tab1OffImg from './assets/tabbar_dashboard_off.png';
+import Tab2OnImg from './assets/tabbar_customer_support_on.png';
+import Tab2OffImage from './assets/tabbar_customer_support_off.png';
+import Tab3OnImg from './assets/tabbar_energy_advisor_on.png';
+import Tab3OffImg from './assets/tabbar_energy_advisor_off.png';
 
 /* eslint-disable max-len */
 const posts = [
@@ -23,30 +31,50 @@ const posts = [
 ];
 /* eslint-enable max-len */
 
-const tabs = [
+const TABS = [
   {
-    label: 'posts1',
-    initialRoute: routeDefs.LIST({ posts })
+    label: 'Tab 1',
+    initialRoute: routeDefs.LIST({ posts }),
+    imageOff: Tab1OffImg,
+    imageOn: Tab1OnImg
   },
   {
-    label: 'posts2',
-    initialRoute: routeDefs.LIST({ posts })
+    label: 'Tab 2',
+    initialRoute: routeDefs.LIST({ posts }),
+    imageOff: Tab2OffImage,
+    imageOn: Tab2OnImg
   },
   {
-    label: 'posts3',
-    initialRoute: routeDefs.LIST({ posts })
+    label: 'Tab 3',
+    initialRoute: routeDefs.LIST({ posts }),
+    imageOff: Tab3OffImg,
+    imageOn: Tab3OnImg
   }
 ];
 
 export default function app() {
   const scrollableTabsProps = {
-    tabBarPosition: 'bottom'
+    tabBarPosition: 'bottom',
+    locked: true,
+    contentProps: { keyboardShouldPersistTaps: 'always' },
+    prerenderingSiblingsNumber: 1,
+    scrollWithoutAnimation: true,
+    renderTabBar: (props) => {
+      return (
+        <TabBar
+          tabIcons={TABS.map((tab) => ({ imageOff: tab.imageOff, imageOn: tab.imageOn }))}
+          {...props}
+        />
+      );
+    }
   };
+
   return (
     <TabsContainer
-      tabsComponentProps={scrollableTabsProps}
-      tabs={tabs}
+      tabs={TABS}
       routeDefs={routeDefs}
+      initialTab={1}
+      tabsComponentProps={scrollableTabsProps}
     />
   );
 }
