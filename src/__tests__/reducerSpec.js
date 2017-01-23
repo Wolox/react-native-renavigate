@@ -256,5 +256,55 @@ describe('#reducer', () => {
     });
   });
 
+  describe('with tabs', () => {
+    it ('should handle tab changed action', () => {
+      const tabsCount = 3;
+      const initialTab = 2;
+      const initAction = actionCreators.initTabs(tabsCount, initialTab);
+      const initialSpecState = reducer(undefined, initAction);
 
+      const action = actionCreators.tabChanged(0);
+      const expectedState = initialSpecState.merge({
+        activeTabIndex: 0
+      });
+      expect(reducer(initialSpecState, action)).toEqual(expectedState);
+    });
+
+    it ('should handle init tabs action', () => {
+      const tabsCount = 3;
+      const initialTab = 2;
+      const action = actionCreators.initTabs(tabsCount, initialTab);
+
+      const expectedState = defaultState.merge({
+        0: {
+          routeStack: [],
+          activeRoute: null,
+          method: null
+        },
+        1: {
+          routeStack: [],
+          activeRoute: null,
+          method: null
+        },
+        2: {
+          routeStack: [],
+          activeRoute: null,
+          method: null
+        },
+        activeTabIndex: 2
+      });
+
+      expect(reducer(undefined, action)).toEqual(expectedState);
+    });
+
+    it ('init tabs action should have no effect if tabs are already initialized', () => {
+      const tabsCount = 3;
+      const initialTab = 2;
+      const action = actionCreators.initTabs(tabsCount, initialTab);
+
+      const initialSpecState = reducer(undefined, action);
+
+      expect(reducer(initialSpecState, action)).toEqual(initialSpecState);
+    });
+  });
 });
