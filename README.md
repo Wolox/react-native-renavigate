@@ -175,16 +175,6 @@ class MyComponent extends Component {
 }
 ```
 
-## TODO List
-- Tests
-- Test time travel debugging
-- Add more examples
-- Improve docs about styling and customizing navbar and tabbar
-- Docs about customizing or replacing scrollable-tab-view
-- Refactor readme: Include Docs & Help section with examples and API doc.
-- Support all navigation methods
-- Hiding tabbar
-
 ## Contributing
 
 1. Fork it
