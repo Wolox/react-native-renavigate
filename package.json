@@ -34,10 +34,17 @@
       "/Examples",
       "/lib"
     ],
+    "modulePathIgnorePatterns": [
+      "/node_modules/",
+      "/Examples",
+      "/lib"
+    ],
     "collectCoverageFrom": [
       "src/**/*.js"
     ],
-    "coverageDirectory": "./coverage/"
+    "coverageDirectory": "./coverage/",
+    "preset": "react-native",
+    "testRegex": ".*\\.spec\\.js$"
   },
   "dependencies": {
     "react-native-scrollable-tab-view": "^0.6.0",

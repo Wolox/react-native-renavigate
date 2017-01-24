@@ -1,5 +1,5 @@
-import reducer, { defaultState } from '../reducer';
-import { actionCreators, initActions } from '../actions';
+import reducer, { defaultState } from '../src/reducer';
+import { actionCreators, initActions } from '../src/actions';
 
 describe('#reducer', () => {
   beforeEach(() => {

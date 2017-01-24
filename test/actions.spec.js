@@ -1,4 +1,4 @@
-import { actions, actionCreators, initActions } from '../actions';
+import { actions, actionCreators, initActions } from '../src/actions';
 
 describe('#initActions', () => {
   beforeEach(() => {
