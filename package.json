@@ -1,6 +1,6 @@
 {
   "name": "react-native-renavigate",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "React native navigation made easy using redux",
   "main": "lib/index.js",
   "scripts": {
@@ -34,16 +34,10 @@
       "/Examples",
       "/lib"
     ],
-    "modulePathIgnorePatterns": [
-      "/node_modules/",
-      "/Examples",
-      "/lib"
-    ],
     "collectCoverageFrom": [
       "src/**/*.js"
     ],
     "coverageDirectory": "./coverage/",
-    "preset": "react-native",
     "testRegex": ".*\\.spec\\.js$"
   },
   "dependencies": {
