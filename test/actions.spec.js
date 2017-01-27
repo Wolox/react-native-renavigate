@@ -18,6 +18,11 @@ describe('#initActions', () => {
     expect(actionCreators.resetTo.ROUTE_B).not.toBeUndefined();
     expect(actionCreators.resetTo.ROUTE_C).toBeUndefined();
   });
+  it('should add replace action creators', () => {
+    expect(actionCreators.replace.ROUTE_A).not.toBeUndefined();
+    expect(actionCreators.replace.ROUTE_B).not.toBeUndefined();
+    expect(actionCreators.replace.ROUTE_C).toBeUndefined();
+  });
 });
 
 describe('#actionCreators', () => {
@@ -55,6 +60,23 @@ describe('#actionCreators', () => {
         }
       };
       expect(actionCreators.resetTo.ROUTE({ foo: 'bar' })).toEqual(expectedAction);
+    });
+  });
+  describe('replace', () => {
+    beforeEach(() => {
+      initActions({ ROUTE: { component: 'RouteComponent' } });
+    });
+    it('should create a replace action', () => {
+      const expectedAction = {
+        type: actions.REPLACE,
+        payload: {
+          route: {
+            name: 'ROUTE',
+            params: { foo: 'bar' }
+          }
+        }
+      };
+      expect(actionCreators.replace.ROUTE({ foo: 'bar' })).toEqual(expectedAction);
     });
   });
   describe('pop', () => {
