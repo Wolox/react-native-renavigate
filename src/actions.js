@@ -4,6 +4,7 @@ export const actions = {
   POP: 'pop',
   POP_TO_TOP: 'popToTop',
   RESET_TO: 'resetTo',
+  REPLACE: 'replace',
   TAB_CHANGED: 'tabChanged',
   INIT_TABS: 'initTabs'
 };
@@ -11,6 +12,7 @@ export const actions = {
 export const actionCreators = {
   push: {},
   resetTo: {},
+  replace: {},
   pop: () => ({ type: actions.POP }),
   popToTop: () => ({ type: actions.POP_TO_TOP }),
   tabChanged: (tabIndex) => ({ type: actions.TAB_CHANGED, payload: { tabIndex } }),
@@ -32,6 +34,12 @@ export function initActions(routeDefs) {
     actionCreators.resetTo[routeName] = (params) => {
       return {
         type: actions.RESET_TO,
+        payload: routePayload(routeName, params)
+      };
+    };
+    actionCreators.replace[routeName] = (params) => {
+      return {
+        type: actions.REPLACE,
         payload: routePayload(routeName, params)
       };
     };

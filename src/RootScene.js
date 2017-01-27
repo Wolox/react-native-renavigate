@@ -47,7 +47,9 @@ export default class RootScene extends Component {
       const navigator = this.getNavigator();
       if (navigationMethod === actions.POP || navigationMethod === actions.POP_TO_TOP) {
         navigator[navigationMethod]();
-      } else if (navigationMethod === actions.PUSH || navigationMethod === actions.RESET_TO) {
+      } else if (navigationMethod === actions.PUSH ||
+                 navigationMethod === actions.RESET_TO ||
+                 navigationMethod === actions.REPLACE) {
         navigator[navigationMethod](currentRoute);
       }
     }
