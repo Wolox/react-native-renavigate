@@ -156,6 +156,9 @@ class MyComponent extends Component {
     // Navigate to a new scene and reset route stack.
     // this.props.dispatch(actionCreators.resetTo.ROUTE_NAME());
 
+    // Replace the current scene.
+    // this.props.dispatch(actionCreators.replace.ROUTE_NAME());
+
     // Transition back and unmount the current scene.
     // this.props.dispatch(actionCreators.pop());
 

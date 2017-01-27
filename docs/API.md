@@ -155,5 +155,6 @@ import { actionCreators } from 'react-native-renavigate';
 You can dispatch the following actions to trigger transitions:
 - actionCreators.push.**route_name**(**params**)
 - actionCreators.resetTo.**route_name**(**params**)
+- actionCreators.replace.**route_name**(**params**)
 - actionCreators.pop()
 - actionCreators.popToTop()

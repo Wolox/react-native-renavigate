@@ -52,6 +52,21 @@ describe('#reducer', () => {
         expect(reducer(undefined, action)).toEqual(expectedState);
       });
 
+      it ('should handle a replace action', () => {
+        const action = actionCreators.replace.ROUTE_A({ routeParam: 1 });
+
+        const routeStackBeforeAction = defaultState[defaultState.activeTabIndex].routeStack;
+        const expectedState = defaultState.merge({
+          [defaultState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
+            method: 'replace',
+            routeStack: routeStackBeforeAction
+          }
+        });
+
+        expect(reducer(undefined, action)).toEqual(expectedState);
+      });
+
       it ('pop actions should have no effect', () => {
         const action = actionCreators.pop();
 
@@ -121,6 +136,21 @@ describe('#reducer', () => {
           }
         });
 
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a replace action', () => {
+        const action = actionCreators.replace.ROUTE_A({ routeParam: 4 });
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
+            method: 'replace',
+            routeStack: routeStackBeforeAction
+          }
+        });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
 
@@ -199,6 +229,21 @@ describe('#reducer', () => {
           }
         });
 
+        expect(reducer(initialSpecState, action)).toEqual(expectedState);
+      });
+
+      it ('should handle a replace action', () => {
+        const action = actionCreators.replace.ROUTE_A({ routeParam: 4 });
+
+        const routeStackBeforeAction = initialSpecState[initialSpecState.activeTabIndex].routeStack;
+
+        const expectedState = initialSpecState.merge({
+          [initialSpecState.activeTabIndex]: {
+            activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
+            method: 'replace',
+            routeStack: routeStackBeforeAction
+          }
+        });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
 
