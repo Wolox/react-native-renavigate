@@ -16,7 +16,7 @@ class RootSceneContainer extends Component {
     BackAndroid.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
   }
 
-  handleAndroidBackButton() {
+  handleAndroidBackButton = () => {
     if (this.props.routeStack && this.props.routeStack.length) {
       this.props.dispatch(navigationActions.pop());
       return true;
