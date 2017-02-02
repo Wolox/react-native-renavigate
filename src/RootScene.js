@@ -101,14 +101,14 @@ const routeInstancePropType = React.PropTypes.shape({
 });
 
 RootScene.propTypes = {
-  activeRoute: navigationPropTypes.activeRoute, // from store
+  activeRoute: navigationPropTypes.activeRoute,
   decorateRouteComponent: React.PropTypes.func.isRequired,
   defaultTransition: React.PropTypes.any.isRequired,
   initialRoute: routeInstancePropType,
   navigationBar: React.PropTypes.func.isRequired,
   navigationBarStyle: React.PropTypes.func.isRequired,
   navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
-  navigationMethod: navigationPropTypes.method, // from store
+  navigationMethod: navigationPropTypes.method,
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   routeStack: navigationPropTypes.routeStack
 };

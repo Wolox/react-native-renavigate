@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
-import { Navigator } from 'react-native';
 
 import TabContainer from './TabContainer';
+import RootScene from './RootScene';
 import { actionCreators } from './actions';
 import { propTypes as navigationPropTypes } from './reducer';
 
@@ -43,6 +43,7 @@ class TabsContainer extends Component {
         navigationBar={this.props.navigationBar}
         navigationBarStyle={this.props.navigationBarStyle}
         navigationStyles={this.props.navigationStyles}
+        defaultTransition={this.props.defaultTransition}
       />
     );
   }
@@ -66,20 +67,15 @@ TabsContainer.defaultProps = {
 
 TabsContainer.propTypes = {
   activeTabIndex: React.PropTypes.number,
-  defaultTransition: React.PropTypes.any,
-  decorateRouteComponent: React.PropTypes.func,
   initialTab: React.PropTypes.number.isRequired,
-  navigationBar: React.PropTypes.func,
-  navigationBarStyle: React.PropTypes.func,
-  navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
-  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       initialRoute: navigationPropTypes.initialRoute,
       label: React.PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
-  tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired
+  tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
+  ...RootScene.propTypes
 };
 
 const mapStateToProps = (store) => {

@@ -47,10 +47,8 @@ class TabContainer extends Component {
 }
 
 TabContainer.propTypes = {
-  activeRoute: navigationPropTypes.activeRoute,
   isActiveTab: React.PropTypes.bool,
-  navigationMethod: navigationPropTypes.method,
-  routeStack: navigationPropTypes.routeStack
+  ...RootScene.propTypes
 };
 
 const mapStateToProps = (store, props) => {
