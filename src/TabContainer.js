@@ -4,7 +4,6 @@ import { BackAndroid } from 'react-native';
 
 import RootScene from './RootScene';
 import { actionCreators as navigationActions } from './actions';
-import { propTypes as navigationPropTypes } from './reducer';
 
 class TabContainer extends Component {
 
