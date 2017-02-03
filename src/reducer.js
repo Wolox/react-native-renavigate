@@ -102,7 +102,7 @@ const routePropType = React.PropTypes.shape({
 
 export const propTypes = {
   activeRoute: routePropType,
-  routeStack: React.PropTypes.arrayOf(routePropType).isRequired,
+  routeStack: React.PropTypes.arrayOf(routePropType),
   method: React.PropTypes.string,
   activeTabIndex(props, propName) {
     const value = props[propName];
