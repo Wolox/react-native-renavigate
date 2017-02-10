@@ -23,7 +23,6 @@ class TabsContainer extends Component {
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
         renderTabBar={(props) => {
-          debugger;
           if (this.props.shouldHideTabBar) {
             return <View />;
           }

@@ -13,6 +13,7 @@ export const defaultState = Immutable({
   shouldHideTabBar: false
 });
 
+/* eslint-disable complexity */
 export default function reducer(state = defaultState, { type, payload }) {
   switch (type) {
     case actions.PUSH: {
@@ -100,6 +101,7 @@ export default function reducer(state = defaultState, { type, payload }) {
     }
   }
 }
+/* eslint-enable complexity */
 
 const routePropType = React.PropTypes.shape({
   name: React.PropTypes.string.isRequired,

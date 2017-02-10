@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
-import { initActions, actions } from './actions';
+import { initActions, actions, actionCreators } from './actions';
 import { propTypes as navigationPropTypes } from './reducer';
 import navigationBarRouteMapper from './navigationBarRouteMapper';
 
@@ -64,7 +64,10 @@ export default class RootScene extends Component {
     return this.refs[RootScene.refs.navigatorComponent];
   }
 
-  renderScene = (route) => {
+  renderScene = (route, navigator) => {
+    if (navigator.state.routeStack.length <= this.props.routeStack.length) {
+      this.props.dispatch(actionCreators.pop());
+    }
     return this.props.decorateRouteComponent(route.component, route.params, route);
   }
 

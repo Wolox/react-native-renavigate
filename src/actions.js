@@ -6,7 +6,8 @@ export const actions = {
   RESET_TO: 'resetTo',
   REPLACE: 'replace',
   TAB_CHANGED: 'tabChanged',
-  INIT_TABS: 'initTabs'
+  INIT_TABS: 'initTabs',
+  NIVELATE: 'nivelate'
 };
 
 export const actionCreators = {
