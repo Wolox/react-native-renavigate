@@ -36,7 +36,9 @@ export default class RootScene extends Component {
     return { activeRouteInstance: this.state.currentRoute };
   }
 
-  componentWillReceiveProps({ activeRoute, navigationMethod }) {
+  componentWillReceiveProps({ activeRoute, navigationMethod, routeStack }) {
+
+    this.routeStack = routeStack;
 
     if (this.props.activeRoute !== activeRoute) {
       const currentRoute = activeRoute
@@ -74,7 +76,11 @@ export default class RootScene extends Component {
 
   handleRouteChange = () => {
     const navigator = this.getNavigator();
-    if (navigator && navigator.state.routeStack.length <= this.props.routeStack.length) {
+    // Stack diff can be either 0 or 2, but never 1.
+    if (
+      (navigator && navigator.state.routeStack.length) ===
+      (this.routeStack && this.routeStack.length + 1)
+    ) {
       this.props.dispatch(actionCreators.pop());
     }
   }
@@ -88,7 +94,7 @@ export default class RootScene extends Component {
       <Navigator
         ref={RootScene.refs.navigatorComponent}
         initialRouteStack={this.initialRouteStack}
-        onDidFocus={this.handleRouteChange}
+        onWillFocus={this.handleRouteChange}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
         navigationBar={this.props.navigationBar(this.props.dispatch, navigationBarProps)}

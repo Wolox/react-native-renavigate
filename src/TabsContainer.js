@@ -73,7 +73,8 @@ class TabsContainer extends Component {
 
 TabsContainer.defaultProps = {
   initialTab: 0,
-  tabsComponentProps: {}
+  tabsComponentProps: {},
+  alwaysShowTabBar: false
 };
 
 TabsContainer.propTypes = {
@@ -86,6 +87,7 @@ TabsContainer.propTypes = {
     }).isRequired
   ).isRequired,
   tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
+  alwaysShowTabBar: React.PropTypes.bool,
   ...RootScene.propTypes
 };
 
