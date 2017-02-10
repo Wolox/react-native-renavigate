@@ -64,15 +64,19 @@ export default class RootScene extends Component {
     return this.refs[RootScene.refs.navigatorComponent];
   }
 
-  renderScene = (route, navigator) => {
-    if (navigator.state.routeStack.length <= this.props.routeStack.length) {
-      this.props.dispatch(actionCreators.pop());
-    }
+  renderScene = (route) => {
     return this.props.decorateRouteComponent(route.component, route.params, route);
   }
 
   configureScene = (route) => {
     return route.transition || this.props.defaultTransition;
+  }
+
+  handleRouteChange = () => {
+    const navigator = this.getNavigator();
+    if (navigator && navigator.state.routeStack.length <= this.props.routeStack.length) {
+      this.props.dispatch(actionCreators.pop());
+    }
   }
 
   render() {
@@ -84,6 +88,7 @@ export default class RootScene extends Component {
       <Navigator
         ref={RootScene.refs.navigatorComponent}
         initialRouteStack={this.initialRouteStack}
+        onDidFocus={this.handleRouteChange}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
         navigationBar={this.props.navigationBar(this.props.dispatch, navigationBarProps)}
