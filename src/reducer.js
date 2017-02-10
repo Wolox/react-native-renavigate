@@ -9,7 +9,8 @@ export const defaultState = Immutable({
     routeStack: [],
     activeRoute: null,
     method: null
-  }
+  },
+  shouldHideTabBar: false
 });
 
 export default function reducer(state = defaultState, { type, payload }) {
@@ -21,7 +22,8 @@ export default function reducer(state = defaultState, { type, payload }) {
           routeStack: [...tabState.routeStack, tabState.activeRoute],
           activeRoute: payload.route,
           method: type
-        }
+        },
+        shouldHideTabBar: [...tabState.routeStack, tabState.activeRoute].length > 0
       });
     }
     case actions.RESET_TO: {
@@ -30,7 +32,8 @@ export default function reducer(state = defaultState, { type, payload }) {
           routeStack: [],
           activeRoute: payload.route,
           method: type
-        }
+        },
+        shouldHideTabBar: false
       });
     }
     case actions.REPLACE: {
@@ -52,7 +55,8 @@ export default function reducer(state = defaultState, { type, payload }) {
           routeStack: tabState.routeStack.slice(0, -1),
           activeRoute: nextActiveRoute,
           method: type
-        }
+        },
+        shouldHideTabBar: tabState.routeStack.slice(0, -1).length > 0
       });
     }
     case actions.POP_TO_TOP: {
@@ -62,7 +66,8 @@ export default function reducer(state = defaultState, { type, payload }) {
           routeStack: [],
           activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack[0] : tabState.activeRoute,
           method: type
-        }
+        },
+        shouldHideTabBar: false
       });
     }
     case actions.INIT_TABS: {
@@ -81,7 +86,8 @@ export default function reducer(state = defaultState, { type, payload }) {
       }
       return state.merge({
         ...tabsState,
-        activeTabIndex: payload.initialTab
+        activeTabIndex: payload.initialTab,
+        shouldHideTabBar: false
       });
     }
     case actions.TAB_CHANGED: {

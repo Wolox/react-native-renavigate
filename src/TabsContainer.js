@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
+import { View } from 'react-native';
 
 import TabContainer from './TabContainer';
 import RootScene from './RootScene';
@@ -21,6 +22,17 @@ class TabsContainer extends Component {
         {...this.props.tabsComponentProps}
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
+        renderTabBar={(props) => {
+          debugger;
+          if (this.props.shouldHideTabBar) {
+            return <View />;
+          }
+          if (this.props.tabsComponentProps.renderTabBar) {
+            return this.props.tabsComponentProps.renderTabBar();
+          }
+          return <DefaultTabBar {...props} />;
+        }}
+        locked={this.props.shouldHideTabBar}
       >
         {
           tabs.map((tab, index) => {
@@ -80,7 +92,8 @@ TabsContainer.propTypes = {
 
 const mapStateToProps = (store) => {
   return {
-    activeTabIndex: store.navigation.activeTabIndex
+    activeTabIndex: store.navigation.activeTabIndex,
+    shouldHideTabBar: store.navigation.shouldHideTabBar
   };
 };
 
