@@ -34,7 +34,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
             method: 'push',
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
-          }
+          },
+          shouldHideTabBar: true
         });
         expect(reducer(undefined, action)).toEqual(expectedState);
       });
@@ -47,7 +48,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
             method: 'resetTo',
             routeStack: []
-          }
+          },
+          shouldHideTabBar: false
         });
         expect(reducer(undefined, action)).toEqual(expectedState);
       });
@@ -61,7 +63,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
             method: 'replace',
             routeStack: routeStackBeforeAction
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(undefined, action)).toEqual(expectedState);
@@ -78,7 +81,8 @@ describe('#reducer', () => {
             activeRoute: activeRouteBeforeAction,
             method: 'pop',
             routeStack: routeStackBeforeAction
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(undefined, action)).toEqual(expectedState);
@@ -95,7 +99,8 @@ describe('#reducer', () => {
             activeRoute: activeRouteBeforeAction,
             method: 'popToTop',
             routeStack: routeStackBeforeAction
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(undefined, action)).toEqual(expectedState);
@@ -120,7 +125,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
             method: 'push',
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
-          }
+          },
+          shouldHideTabBar: true
         });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
@@ -133,7 +139,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
             method: 'resetTo',
             routeStack: []
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -149,7 +156,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
             method: 'replace',
             routeStack: routeStackBeforeAction
-          }
+          },
+          shouldHideTabBar: true
         });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
@@ -164,7 +172,8 @@ describe('#reducer', () => {
             activeRoute: routeStackBeforeAction.slice(-1)[0],
             method: 'pop',
             routeStack: routeStackBeforeAction.slice(0, -1)
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -180,7 +189,8 @@ describe('#reducer', () => {
             activeRoute: routeStackBeforeAction[0],
             method: 'popToTop',
             routeStack: []
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -213,7 +223,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
             method: 'push',
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
-          }
+          },
+          shouldHideTabBar: true
         });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
@@ -226,7 +237,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
             method: 'resetTo',
             routeStack: []
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -242,7 +254,8 @@ describe('#reducer', () => {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
             method: 'replace',
             routeStack: routeStackBeforeAction
-          }
+          },
+          shouldHideTabBar: true
         });
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
       });
@@ -257,7 +270,8 @@ describe('#reducer', () => {
             activeRoute: routeStackBeforeAction.slice(-1)[0],
             method: 'pop',
             routeStack: routeStackBeforeAction.slice(0, -1)
-          }
+          },
+          shouldHideTabBar: true
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -273,7 +287,8 @@ describe('#reducer', () => {
             activeRoute: routeStackBeforeAction.slice(-4)[0],
             method: 'pop',
             routeStack: routeStackBeforeAction.slice(0, -4)
-          }
+          },
+          shouldHideTabBar: true
         });
 
         let stateAfterPop = reducer(initialSpecState, action);
@@ -293,7 +308,8 @@ describe('#reducer', () => {
             activeRoute: routeStackBeforeAction[0],
             method: 'popToTop',
             routeStack: []
-          }
+          },
+          shouldHideTabBar: false
         });
 
         expect(reducer(initialSpecState, action)).toEqual(expectedState);
@@ -336,7 +352,8 @@ describe('#reducer', () => {
           activeRoute: null,
           method: null
         },
-        activeTabIndex: 2
+        activeTabIndex: 2,
+        shouldHideTabBar: false
       });
 
       expect(reducer(undefined, action)).toEqual(expectedState);

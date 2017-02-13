@@ -24,7 +24,7 @@ export default function reducer(state = defaultState, { type, payload }) {
           activeRoute: payload.route,
           method: type
         },
-        shouldHideTabBar: [...tabState.routeStack, tabState.activeRoute].length > 0
+        shouldHideTabBar: true
       });
     }
     case actions.RESET_TO: {

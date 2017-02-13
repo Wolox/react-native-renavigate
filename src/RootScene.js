@@ -78,8 +78,8 @@ export default class RootScene extends Component {
     const navigator = this.getNavigator();
     // Stack diff can be either 0 or 2, but never 1.
     if (
-      (navigator && navigator.state.routeStack.length) ===
-      (this.routeStack && this.routeStack.length + 1)
+      (navigator && this.routeStack && navigator.state.routeStack.length) ===
+      (this.routeStack.length + 1)
     ) {
       this.props.dispatch(actionCreators.pop());
     }
