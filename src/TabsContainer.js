@@ -23,7 +23,7 @@ class TabsContainer extends Component {
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
         renderTabBar={(props) => {
-          if (this.props.shouldHideTabBar) {
+          if (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar) {
             return <View />;
           }
           if (this.props.tabsComponentProps.renderTabBar) {
@@ -31,7 +31,7 @@ class TabsContainer extends Component {
           }
           return <DefaultTabBar {...props} />;
         }}
-        locked={this.props.shouldHideTabBar}
+        locked={this.props.shouldHideTabBar && !this.props.alwaysShowTabBar}
       >
         {
           tabs.map((tab, index) => {

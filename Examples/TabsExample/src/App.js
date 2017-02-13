@@ -47,6 +47,7 @@ export default function app() {
       tabsComponentProps={scrollableTabsProps}
       tabs={tabs}
       routeDefs={routeDefs}
+      alwaysShowTabBar
     />
   );
 }
