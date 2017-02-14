@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
-import { initActions, actions } from './actions';
+import { initActions, actions, actionCreators } from './actions';
 import { propTypes as navigationPropTypes } from './reducer';
 import navigationBarRouteMapper from './navigationBarRouteMapper';
 
@@ -36,7 +36,9 @@ export default class RootScene extends Component {
     return { activeRouteInstance: this.state.currentRoute };
   }
 
-  componentWillReceiveProps({ activeRoute, navigationMethod }) {
+  componentWillReceiveProps({ activeRoute, navigationMethod, routeStack }) {
+
+    this.routeStack = routeStack;
 
     if (this.props.activeRoute !== activeRoute) {
       const currentRoute = activeRoute
@@ -72,6 +74,18 @@ export default class RootScene extends Component {
     return route.transition || this.props.defaultTransition;
   }
 
+  handleRouteChange = () => {
+    const navigator = this.getNavigator();
+    // Stack diff can be either 0 or 2, but never 1.
+    if (
+      navigator && this.routeStack && navigator.state.routeStack.length ===
+      this.routeStack.length + 1
+    ) {
+      this.routeStack = null;
+      this.props.dispatch(actionCreators.pop());
+    }
+  }
+
   render() {
     const navigationBarProps = {
       navigationStyles: this.props.navigationStyles,
@@ -81,6 +95,7 @@ export default class RootScene extends Component {
       <Navigator
         ref={RootScene.refs.navigatorComponent}
         initialRouteStack={this.initialRouteStack}
+        onWillFocus={this.handleRouteChange}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
         navigationBar={this.props.navigationBar(this.props.dispatch, navigationBarProps)}

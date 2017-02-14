@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
+import { View } from 'react-native';
 
 import TabContainer from './TabContainer';
 import RootScene from './RootScene';
@@ -21,6 +22,16 @@ class TabsContainer extends Component {
         {...this.props.tabsComponentProps}
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
+        renderTabBar={(props) => {
+          if (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar) {
+            return <View />;
+          }
+          if (this.props.tabsComponentProps.renderTabBar) {
+            return this.props.tabsComponentProps.renderTabBar(props);
+          }
+          return <DefaultTabBar {...props} />;
+        }}
+        locked={this.props.shouldHideTabBar && !this.props.alwaysShowTabBar}
       >
         {
           tabs.map((tab, index) => {
@@ -62,7 +73,8 @@ class TabsContainer extends Component {
 
 TabsContainer.defaultProps = {
   initialTab: 0,
-  tabsComponentProps: {}
+  tabsComponentProps: {},
+  alwaysShowTabBar: false
 };
 
 TabsContainer.propTypes = {
@@ -75,12 +87,14 @@ TabsContainer.propTypes = {
     }).isRequired
   ).isRequired,
   tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
+  alwaysShowTabBar: React.PropTypes.bool,
   ...RootScene.propTypes
 };
 
 const mapStateToProps = (store) => {
   return {
-    activeTabIndex: store.navigation.activeTabIndex
+    activeTabIndex: store.navigation.activeTabIndex,
+    shouldHideTabBar: store.navigation.shouldHideTabBar
   };
 };
 
