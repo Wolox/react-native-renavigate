@@ -27,7 +27,7 @@ class TabsContainer extends Component {
             return <View />;
           }
           if (this.props.tabsComponentProps.renderTabBar) {
-            return this.props.tabsComponentProps.renderTabBar();
+            return this.props.tabsComponentProps.renderTabBar(props);
           }
           return <DefaultTabBar {...props} />;
         }}
