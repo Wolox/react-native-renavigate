@@ -24,7 +24,7 @@ class TabsContainer extends Component {
         initialPage={this.initialTab}
         renderTabBar={(props) => {
           if (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar) {
-            return <View />;
+            return <View style={{ height: this.props.hiddenPad || 0 }}/>;
           }
           if (this.props.tabsComponentProps.renderTabBar) {
             return this.props.tabsComponentProps.renderTabBar(props);
@@ -88,6 +88,7 @@ TabsContainer.propTypes = {
   ).isRequired,
   tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
   alwaysShowTabBar: React.PropTypes.bool,
+  hiddenPad: React.PropTypes.number,
   ...RootScene.propTypes
 };
 
