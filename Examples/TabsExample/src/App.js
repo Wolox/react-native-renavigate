@@ -44,6 +44,7 @@ export default function app() {
   };
   return (
     <TabsContainer
+      initialTab={1}
       tabsComponentProps={scrollableTabsProps}
       tabs={tabs}
       routeDefs={routeDefs}
