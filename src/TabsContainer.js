@@ -59,6 +59,7 @@ class TabsContainer extends Component {
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
         renderTabBar={this.renderTabBar}
+        page={this.props.activeTabIndex}
       >
         {
           tabs.map((tab, index) => {
