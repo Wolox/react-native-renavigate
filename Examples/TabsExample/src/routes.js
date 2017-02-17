@@ -4,6 +4,7 @@ import { actionCreators as navigationActions } from 'react-native-renavigate';
 
 import PostDetailContainer from './PostDetailContainer';
 import PostListContainer from './PostListContainer';
+import EmptyView from './EmptyView';
 
 const navButtonStyle = { padding: 5, color: 'blue' };
 const titleStyle = { fontWeight: 'bold' };
@@ -34,6 +35,13 @@ export default {
     params,
     title: () => {
       return <Text style={[titleStyle, navButtonStyle]}>YOUR POSTS</Text>;
+    }
+  }),
+  EMPTY_VIEW: (params) => ({
+    component: EmptyView,
+    params,
+    title: () => {
+      return <Text style={[titleStyle, navButtonStyle]}>EMPTY VIEW</Text>;
     }
   })
 };
