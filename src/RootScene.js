@@ -39,6 +39,7 @@ export default class RootScene extends Component {
   componentWillReceiveProps({ activeRoute, navigationMethod, routeStack }) {
 
     this.routeStack = routeStack;
+    this.replaceTriggered = navigationMethod === actions.REPLACE;
 
     if (this.props.activeRoute !== activeRoute) {
       const currentRoute = activeRoute
@@ -76,14 +77,30 @@ export default class RootScene extends Component {
 
   handleRouteChange = () => {
     const navigator = this.getNavigator();
-    // Stack diff can be either 0 or 2, but never 1.
+    /* Here, we need to whether handle common actions that are captured in the reducer,
+    or to handle swipe-to-pop gesture, typical in iOS.
+    On pop or push, stack diff can be either 0 or 2, respectively.
+    In swipe-to-pop, this diff will be 1, since the action isn't being handled by reducer.
+    Then, if this diff is 1, and the action is not a replace, we need to pop a route from
+    our stack. */
     if (
+      !this.replaceTriggered &&
       navigator && this.routeStack && navigator.state.routeStack.length ===
       this.routeStack.length + 1
     ) {
       this.routeStack = null;
+      this.replaceTriggered = false;
       this.props.dispatch(actionCreators.pop());
     }
+  }
+
+  onWillFocus = () => {
+    this.handleRouteChange();
+    return this.props.onWillFocus && this.props.onWillFocus();
+  }
+
+  onDidFocus = () => {
+    return this.props.onDidFocus && this.props.onDidFocus();
   }
 
   render() {
@@ -95,7 +112,8 @@ export default class RootScene extends Component {
       <Navigator
         ref={RootScene.refs.navigatorComponent}
         initialRouteStack={this.initialRouteStack}
-        onWillFocus={this.handleRouteChange}
+        onWillFocus={this.onWillFocus}
+        onDidFocus={this.onDidFocus}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
         navigationBar={this.props.navigationBar(this.props.dispatch, navigationBarProps)}
@@ -125,7 +143,9 @@ RootScene.propTypes = {
   navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
   navigationMethod: navigationPropTypes.method,
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
-  routeStack: navigationPropTypes.routeStack
+  routeStack: navigationPropTypes.routeStack,
+  onWillFocus: React.PropTypes.func,
+  onDidFocus: React.PropTypes.func
 };
 
 RootScene.defaultProps = {

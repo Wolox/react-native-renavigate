@@ -14,31 +14,54 @@ class TabsContainer extends Component {
     super(props);
     this.initialTab = props.activeTabIndex || props.initialTab;
     props.dispatch(actionCreators.initTabs(props.tabs.length, this.initialTab));
+    this.state = {
+      hiddenPad: this.props.hiddenPad || 0
+    };
+  }
+
+  shouldHideTabBar = () => {
+    return (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar);
+  }
+
+  afterPushView = () => {
+    if (this.shouldHideTabBar()) {
+      this.setState({ hiddenPad: 0 });
+    }
+  }
+
+  beforePopView = () => {
+    if (!this.shouldHideTabBar()) {
+      this.setState({ hiddenPad: this.props.hiddenPad || 0 });
+    }
+  }
+
+  renderTabBar = (props) => {
+    if (this.shouldHideTabBar()) {
+      return <View style={{ height: this.state.hiddenPad }}/>;
+    }
+
+    if (this.props.tabsComponentProps.renderTabBar) {
+      return this.props.tabsComponentProps.renderTabBar(props);
+    }
+
+    return <DefaultTabBar {...props} />;
   }
 
   getTabsComponent(tabs) {
     return (
       <ScrollableTabView
+        locked={this.shouldHideTabBar()}
         {...this.props.tabsComponentProps}
         onChangeTab={this.handleTabChanged}
         initialPage={this.initialTab}
+        renderTabBar={this.renderTabBar}
         page={this.props.activeTabIndex}
-        renderTabBar={(props) => {
-          if (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar) {
-            return <View />;
-          }
-          if (this.props.tabsComponentProps.renderTabBar) {
-            return this.props.tabsComponentProps.renderTabBar(props);
-          }
-          return <DefaultTabBar {...props} />;
-        }}
-        locked={this.props.shouldHideTabBar && !this.props.alwaysShowTabBar}
       >
         {
           tabs.map((tab, index) => {
             return this.getTabComponent(tab, index);
-          }
-        )}
+          })
+        }
       </ScrollableTabView>
     );
   }
@@ -56,6 +79,8 @@ class TabsContainer extends Component {
         navigationBarStyle={this.props.navigationBarStyle}
         navigationStyles={this.props.navigationStyles}
         defaultTransition={this.props.defaultTransition}
+        onWillFocus={this.beforePopView}
+        onDidFocus={this.afterPushView}
       />
     );
   }
@@ -89,6 +114,7 @@ TabsContainer.propTypes = {
   ).isRequired,
   tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
   alwaysShowTabBar: React.PropTypes.bool,
+  hiddenPad: React.PropTypes.number,
   ...RootScene.propTypes
 };
 

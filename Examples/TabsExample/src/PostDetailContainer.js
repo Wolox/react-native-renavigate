@@ -17,6 +17,10 @@ class PostDetailContainer extends Component {
     this.props.dispatch(actionCreators.pop());
   }
 
+  replaceWithEmpty = () => {
+    this.props.dispatch(actionCreators.replace.EMPTY_VIEW());
+  }
+
   render() {
     return (
       <View style={{ marginTop: 60, backgroundColor: 'white' }}>
@@ -29,6 +33,12 @@ class PostDetailContainer extends Component {
         <Text style={{ margin: 30 }}>
           { this.props.text }
         </Text>
+        <TouchableOpacity
+          onPress={this.replaceWithEmpty}
+          style={{ margin: 30 }}
+        >
+          <Text style={{ fontWeight: 'bold' }}>Go to empty view</Text>
+        </TouchableOpacity>
       </View>
     );
   }
