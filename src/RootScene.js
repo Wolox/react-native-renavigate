@@ -77,7 +77,12 @@ export default class RootScene extends Component {
 
   handleRouteChange = () => {
     const navigator = this.getNavigator();
-    // Stack diff can be either 0 or 2, but never 1.
+    /* Here, we need to whether handle common actions that are captured in the reducer,
+    or to handle swipe-to-pop gesture, typical in iOS.
+    On pop or push, stack diff can be either 0 or 2, respectively.
+    In swipe-to-pop, this diff will be 1, since the action isn't being handled by reducer.
+    Then, if this diff is 1, and the action is not a replace, we need to pop a route from
+    our stack. */
     if (
       !this.replaceTriggered &&
       navigator && this.routeStack && navigator.state.routeStack.length ===

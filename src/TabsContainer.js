@@ -15,12 +15,8 @@ class TabsContainer extends Component {
     this.initialTab = props.activeTabIndex || props.initialTab;
     props.dispatch(actionCreators.initTabs(props.tabs.length, this.initialTab));
     this.state = {
-      hiddenPad: 0
+      hiddenPad: this.props.shouldHideTabBar || 0
     };
-  }
-
-  componentWillMount() {
-    this.setState({ hiddenPad: this.props.shouldHideTabBar || 0 });
   }
 
   shouldHideTabBar = () => {
