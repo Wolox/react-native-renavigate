@@ -1,6 +1,6 @@
 {
   "name": "react-native-renavigate",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "React native navigation made easy using redux",
   "main": "lib/index.js",
   "scripts": {
