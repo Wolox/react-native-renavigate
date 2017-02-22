@@ -37,7 +37,7 @@ RootSceneContainer.propTypes = {
 };
 
 const mapStateToProps = (store) => {
-  const navState = store.navigation[store.navigation.activeTabIndex];
+  const navState = store.navigation.null;
   return {
     activeRoute: navState && navState.activeRoute,
     navigationMethod: navState && navState.method,
