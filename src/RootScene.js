@@ -17,7 +17,7 @@ export default class RootScene extends Component {
 
     let currentRoute = this.props.initialRoute;
 
-    const restoredRouteStack = this.props.routeStack
+    const restoredRouteStack = this.props.routeStack.asMutable()
                                        .filter((route) => !!route)
                                        .map(({ name, params }) => this.props.routeDefs[name](params));
 
