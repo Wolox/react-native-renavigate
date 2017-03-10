@@ -83,15 +83,17 @@ export default class RootScene extends Component {
     In swipe-to-pop, this diff will be 1, since the action isn't being handled by reducer.
     Then, if this diff is 1, and the action is not a replace, we need to pop a route from
     our stack. */
+
     if (
       !this.replaceTriggered &&
       navigator && this.routeStack && navigator.state.routeStack.length ===
       this.routeStack.length + 1
     ) {
       this.routeStack = null;
-      this.replaceTriggered = false;
-      this.props.dispatch(actionCreators.pop());
+      this.props.dispatch(actionCreators.softPop());
     }
+
+    this.replaceTriggered = false;
   }
 
   onWillFocus = () => {
