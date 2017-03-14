@@ -46,6 +46,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         }
       });
     }
+    case actions.SOFT_POP:
     case actions.POP: {
       const tabState = state[state.activeTabIndex];
       const nextActiveRoute = tabState.routeStack.length > 0

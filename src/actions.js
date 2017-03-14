@@ -1,6 +1,7 @@
 
 export const actions = {
   PUSH: 'push',
+  SOFT_POP: 'softPop',
   POP: 'pop',
   POP_TO_TOP: 'popToTop',
   RESET_TO: 'resetTo',
@@ -13,6 +14,7 @@ export const actionCreators = {
   push: {},
   resetTo: {},
   replace: {},
+  softPop: () => ({ type: actions.SOFT_POP }),
   pop: () => ({ type: actions.POP }),
   popToTop: () => ({ type: actions.POP_TO_TOP }),
   tabChanged: (tabIndex) => ({ type: actions.TAB_CHANGED, payload: { tabIndex } }),
