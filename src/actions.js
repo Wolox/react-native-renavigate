@@ -1,13 +1,13 @@
 
 export const actions = {
-  PUSH: 'push',
-  SOFT_POP: 'softPop',
-  POP: 'pop',
-  POP_TO_TOP: 'popToTop',
-  RESET_TO: 'resetTo',
-  REPLACE: 'replace',
-  TAB_CHANGED: 'tabChanged',
-  INIT_TABS: 'initTabs'
+  PUSH: '@@renavigate/PUSH',
+  SOFT_POP: '@@renavigate/SOFT_POP',
+  POP: '@@renavigate/POP',
+  POP_TO_TOP: '@@renavigate/POP_TO_TOP',
+  RESET_TO: '@@renavigate/RESET_TO',
+  REPLACE: '@@renavigate/REPLACE',
+  TAB_CHANGED: '@@renavigate/TAB_CHANGED',
+  INIT_TABS: '@@renavigate/INIT_TABS'
 };
 
 export const actionCreators = {
