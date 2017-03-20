@@ -1,5 +1,5 @@
 import reducer, { defaultState } from '../src/reducer';
-import { actionCreators, initActions } from '../src/actions';
+import { actions, actionCreators, initActions } from '../src/actions';
 
 describe('#reducer', () => {
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('#reducer', () => {
         const expectedState = defaultState.merge({
           [defaultState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-            method: 'push',
+            method: actions.PUSH,
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
           },
           shouldHideTabBar: true
@@ -46,7 +46,7 @@ describe('#reducer', () => {
         const expectedState = defaultState.merge({
           [defaultState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
-            method: 'resetTo',
+            method: actions.RESET_TO,
             routeStack: []
           },
           shouldHideTabBar: false
@@ -61,7 +61,7 @@ describe('#reducer', () => {
         const expectedState = defaultState.merge({
           [defaultState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
-            method: 'replace',
+            method: actions.REPLACE,
             routeStack: routeStackBeforeAction
           },
           shouldHideTabBar: false
@@ -79,7 +79,7 @@ describe('#reducer', () => {
         const expectedState = defaultState.merge({
           [defaultState.activeTabIndex]: {
             activeRoute: activeRouteBeforeAction,
-            method: 'pop',
+            method: actions.POP,
             routeStack: routeStackBeforeAction
           },
           shouldHideTabBar: false
@@ -97,7 +97,7 @@ describe('#reducer', () => {
         const expectedState = defaultState.merge({
           [defaultState.activeTabIndex]: {
             activeRoute: activeRouteBeforeAction,
-            method: 'popToTop',
+            method: actions.POP_TO_TOP,
             routeStack: routeStackBeforeAction
           },
           shouldHideTabBar: false
@@ -123,7 +123,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-            method: 'push',
+            method: actions.PUSH,
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
           },
           shouldHideTabBar: true
@@ -137,7 +137,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
-            method: 'resetTo',
+            method: actions.RESET_TO,
             routeStack: []
           },
           shouldHideTabBar: false
@@ -154,7 +154,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-            method: 'replace',
+            method: actions.REPLACE,
             routeStack: routeStackBeforeAction
           },
           shouldHideTabBar: true
@@ -170,7 +170,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: routeStackBeforeAction.slice(-1)[0],
-            method: 'pop',
+            method: actions.POP,
             routeStack: routeStackBeforeAction.slice(0, -1)
           },
           shouldHideTabBar: false
@@ -187,7 +187,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: routeStackBeforeAction[0],
-            method: 'popToTop',
+            method: actions.POP_TO_TOP,
             routeStack: []
           },
           shouldHideTabBar: false
@@ -221,7 +221,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-            method: 'push',
+            method: actions.PUSH,
             routeStack: routeStackBeforeAction.concat(activeRouteBeforeAction)
           },
           shouldHideTabBar: true
@@ -235,7 +235,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 1 } },
-            method: 'resetTo',
+            method: actions.RESET_TO,
             routeStack: []
           },
           shouldHideTabBar: false
@@ -252,7 +252,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: { name: 'ROUTE_A', params: { routeParam: 4 } },
-            method: 'replace',
+            method: actions.REPLACE,
             routeStack: routeStackBeforeAction
           },
           shouldHideTabBar: true
@@ -268,7 +268,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: routeStackBeforeAction.slice(-1)[0],
-            method: 'pop',
+            method: actions.POP,
             routeStack: routeStackBeforeAction.slice(0, -1)
           },
           shouldHideTabBar: true
@@ -285,7 +285,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: routeStackBeforeAction.slice(-4)[0],
-            method: 'pop',
+            method: actions.POP,
             routeStack: routeStackBeforeAction.slice(0, -4)
           },
           shouldHideTabBar: true
@@ -306,7 +306,7 @@ describe('#reducer', () => {
         const expectedState = initialSpecState.merge({
           [initialSpecState.activeTabIndex]: {
             activeRoute: routeStackBeforeAction[0],
-            method: 'popToTop',
+            method: actions.POP_TO_TOP,
             routeStack: []
           },
           shouldHideTabBar: false
