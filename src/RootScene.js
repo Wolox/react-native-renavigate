@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
-import { initActions, actions, actionCreators } from './actions';
+import { initActions, methodActions, actionCreators } from './actions';
 import { propTypes as navigationPropTypes } from './reducer';
 import navigationBarRouteMapper from './navigationBarRouteMapper';
 
@@ -39,7 +39,8 @@ export default class RootScene extends Component {
   componentWillReceiveProps({ activeRoute, navigationMethod, routeStack }) {
 
     this.routeStack = routeStack;
-    this.nonPopActionTriggered = navigationMethod === actions.REPLACE || navigationMethod === actions.PUSH;
+    this.nonPopActionTriggered =
+      navigationMethod === methodActions.REPLACE || navigationMethod === methodActions.PUSH;
 
     if (this.props.activeRoute !== activeRoute) {
       const currentRoute = activeRoute
@@ -48,11 +49,11 @@ export default class RootScene extends Component {
       this.setState({ currentRoute });
 
       const navigator = this.getNavigator();
-      if (navigationMethod === actions.POP || navigationMethod === actions.POP_TO_TOP) {
+      if (navigationMethod === methodActions.POP || navigationMethod === methodActions.POP_TO_TOP) {
         navigator[navigationMethod]();
-      } else if (navigationMethod === actions.PUSH ||
-                 navigationMethod === actions.RESET_TO ||
-                 navigationMethod === actions.REPLACE) {
+      } else if (navigationMethod === methodActions.PUSH ||
+                 navigationMethod === methodActions.RESET_TO ||
+                 navigationMethod === methodActions.REPLACE) {
         navigator[navigationMethod](currentRoute);
       }
     }

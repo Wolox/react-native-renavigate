@@ -10,6 +10,28 @@ export const actions = {
   INIT_TABS: '@@renavigate/INIT_TABS'
 };
 
+export const methodActions = {
+  PUSH: 'push',
+  SOFT_POP: 'softPop',
+  POP: 'pop',
+  POP_TO_TOP: 'popToTop',
+  RESET_TO: 'resetTo',
+  REPLACE: 'replace',
+  TAB_CHANGED: 'tabChanged',
+  INIT_TABS: 'initTabs'
+};
+
+export const typeToMethod = {
+  '@@renavigate/PUSH': 'push',
+  '@@renavigate/SOFT_POP': 'softPop',
+  '@@renavigate/POP': 'pop',
+  '@@renavigate/POP_TO_TOP': 'popToTop',
+  '@@renavigate/RESET_TO': 'resetTo',
+  '@@renavigate/REPLACE': 'replace',
+  '@@renavigate/TAB_CHANGED': 'tabChanged',
+  '@@renavigate/INIT_TABS': 'initTabs'
+};
+
 export const actionCreators = {
   push: {},
   resetTo: {},

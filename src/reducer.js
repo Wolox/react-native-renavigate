@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 
-import { actions } from './actions';
+import { actions, typeToMethod } from './actions';
 
 export const defaultState = Immutable({
   activeTabIndex: null,
@@ -22,7 +22,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         [state.activeTabIndex]: {
           routeStack: [...tabState.routeStack, tabState.activeRoute],
           activeRoute: payload.route,
-          method: type
+          method: typeToMethod[type]
         },
         shouldHideTabBar: true
       });
@@ -32,7 +32,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         [state.activeTabIndex]: {
           routeStack: [],
           activeRoute: payload.route,
-          method: type
+          method: typeToMethod[type]
         },
         shouldHideTabBar: false
       });
@@ -42,7 +42,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         [state.activeTabIndex]: {
           ...state[state.activeTabIndex],
           activeRoute: payload.route,
-          method: type
+          method: typeToMethod[type]
         }
       });
     }
@@ -56,7 +56,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         [state.activeTabIndex]: {
           routeStack: tabState.routeStack.slice(0, -1),
           activeRoute: nextActiveRoute,
-          method: type
+          method: typeToMethod[type]
         },
         shouldHideTabBar: tabState.routeStack.slice(0, -1).length > 0
       });
@@ -67,7 +67,7 @@ export default function reducer(state = defaultState, { type, payload }) {
         [state.activeTabIndex]: {
           routeStack: [],
           activeRoute: tabState.routeStack.length > 0 ? tabState.routeStack[0] : tabState.activeRoute,
-          method: type
+          method: typeToMethod[type]
         },
         shouldHideTabBar: false
       });
