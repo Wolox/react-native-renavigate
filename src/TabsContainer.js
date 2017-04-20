@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 import TabContainer from './TabContainer';
-import RootScene from './RootScene';
+import RootScene, { routeInstancePropType } from './RootScene';
 import { actionCreators } from './actions';
-import { propTypes as navigationPropTypes } from './reducer';
+
 
 class TabsContainer extends Component {
 
@@ -108,7 +108,10 @@ TabsContainer.propTypes = {
   initialTab: React.PropTypes.number.isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      initialRoute: navigationPropTypes.initialRoute,
+      initialRoute: React.PropTypes.oneOf([
+        routeInstancePropType,
+        React.PropTypes.arrayOf(routeInstancePropType)
+      ]),
       label: React.PropTypes.string.isRequired
     }).isRequired
   ).isRequired,

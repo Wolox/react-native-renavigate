@@ -132,7 +132,7 @@ export default class RootScene extends Component {
   }
 }
 
-const routeInstancePropType = React.PropTypes.shape({
+export const routeInstancePropType = React.PropTypes.shape({
   component: React.PropTypes.oneOfType([
     React.PropTypes.func,
     React.PropTypes.element
