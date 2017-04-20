@@ -147,7 +147,10 @@ RootScene.propTypes = {
   activeRoute: navigationPropTypes.activeRoute,
   decorateRouteComponent: React.PropTypes.func,
   defaultTransition: React.PropTypes.any,
-  initialRoute: routeInstancePropType,
+  initialRoute: React.PropTypes.oneOf([
+    routeInstancePropType,
+    React.PropTypes.arrayOf(routeInstancePropType)
+  ]),
   navigationBar: React.PropTypes.func,
   navigationBarStyle: React.PropTypes.func,
   navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
