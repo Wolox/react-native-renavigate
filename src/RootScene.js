@@ -147,7 +147,7 @@ RootScene.propTypes = {
   activeRoute: navigationPropTypes.activeRoute,
   decorateRouteComponent: React.PropTypes.func,
   defaultTransition: React.PropTypes.any,
-  initialRoute: React.PropTypes.oneOf([
+  initialRoute: React.PropTypes.oneOfType([
     routeInstancePropType,
     React.PropTypes.arrayOf(routeInstancePropType)
   ]),

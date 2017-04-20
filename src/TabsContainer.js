@@ -7,7 +7,6 @@ import TabContainer from './TabContainer';
 import RootScene, { routeInstancePropType } from './RootScene';
 import { actionCreators } from './actions';
 
-
 class TabsContainer extends Component {
 
   constructor(props) {
@@ -108,7 +107,7 @@ TabsContainer.propTypes = {
   initialTab: React.PropTypes.number.isRequired,
   tabs: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      initialRoute: React.PropTypes.oneOf([
+      initialRoute: React.PropTypes.oneOfType([
         routeInstancePropType,
         React.PropTypes.arrayOf(routeInstancePropType)
       ]),
