@@ -15,13 +15,20 @@ export default class RootScene extends Component {
     super(props);
     initActions(props.routeDefs);
 
-    let currentRoute = this.props.initialRoute;
+    // initialRoute may be the initialRoute itself or a list of initial routes.
+    const initialRoutes = Array.isArray(this.props.initialRoute)
+      ? this.props.initialRoute
+      : [this.props.initialRoute];
+
+    let currentRoute = initialRoutes[initialRoutes.length - 1];
 
     const restoredRouteStack = this.props.routeStack.asMutable()
                                        .filter((route) => !!route)
                                        .map(({ name, params }) => this.props.routeDefs[name](params));
 
-    this.initialRouteStack = [this.props.initialRoute].concat(restoredRouteStack);
+    this.initialRouteStack = restoredRouteStack.length
+      ? [initialRoutes[0]].concat(restoredRouteStack)
+      : initialRoutes;
 
     if (this.props.activeRoute) {
       const { name: restoredRouteName, params: restoredRouteParams } = this.props.activeRoute;
