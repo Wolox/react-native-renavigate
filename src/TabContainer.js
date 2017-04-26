@@ -40,8 +40,25 @@ class TabContainer extends Component {
     }
   }
 
+  handleWillFocus = (route) => {
+    if (this.props.onWillFocus) {
+      this.props.onWillFocus(route, this.props.tabIndex);
+    }
+  }
+
+  handleDidFocus = (route) => {
+    if (this.props.onDidFocus) {
+      this.props.onDidFocus(route, this.props.tabIndex);
+    }
+  }
+
   render() {
-    return <RootScene {...this.props} />;
+    return (
+      <RootScene
+        {...this.props}
+        onWillFocus={this.handleWillFocus}
+        onDidFocus={this.handleDidFocus}
+      />);
   }
 }
 

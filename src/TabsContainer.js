@@ -13,6 +13,7 @@ class TabsContainer extends Component {
     super(props);
     this.initialTab = props.activeTabIndex || props.initialTab;
     props.dispatch(actionCreators.initTabs(props.tabs.length, this.initialTab));
+    this.activeRoutes = {};
     this.state = {
       hiddenPad: this.props.hiddenPad || 0
     };
@@ -20,23 +21,23 @@ class TabsContainer extends Component {
 
   shouldHideTabBar = () => {
     const currentTab = this.props.tabs[this.props.activeTabIndex];
-    return (!this.props.alwaysShowTabBar && (this.props.shouldHideTabBar ||
-      (currentTab && Array.isArray(currentTab.initialRoute)
-      && currentTab.initialRoute.indexOf(this.currentRoute) > 0)));
+    const activeRoute = this.activeRoutes[this.props.activeTabIndex];
+    return (!this.props.alwaysShowTabBar && (this.props.shouldHideTabBar || (currentTab &&
+      Array.isArray(currentTab.initialRoute) && currentTab.initialRoute.indexOf(activeRoute) > 0)));
   }
 
-  afterPushView = (route) => {
-    this.currentRoute = route;
+  afterPushView = () => {
     if (this.shouldHideTabBar()) {
       this.setState({ hiddenPad: 0 });
     }
   }
 
-  beforePopView = (route) => {
-    this.currentRoute = route;
+  beforePopView = (route, tabIndex) => {
     if (!this.shouldHideTabBar()) {
       this.setState({ hiddenPad: this.props.hiddenPad || 0 });
     }
+    this.activeRoutes[tabIndex] = route;
+    this.setState({ activeRoutes: this.activeRoutes });
   }
 
   renderTabBar = (props) => {
@@ -126,7 +127,9 @@ TabsContainer.propTypes = {
 };
 
 const mapStateToProps = (store) => {
+  const navState = store.navigation[store.navigation.activeTabIndex];
   return {
+    activeRoute: navState && navState.activeRoute,
     activeTabIndex: store.navigation.activeTabIndex,
     shouldHideTabBar: store.navigation.shouldHideTabBar
   };
