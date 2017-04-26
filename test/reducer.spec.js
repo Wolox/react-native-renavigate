@@ -2,18 +2,19 @@ import reducer, { defaultState } from '../src/reducer';
 import { actionCreators, initActions } from '../src/actions';
 
 describe('#reducer', () => {
+  const routes = {
+    ROUTE_A: {
+      component: 'AComponent'
+    },
+    ROUTE_B: {
+      component: 'BComponent'
+    },
+    ROUTE_C: {
+      component: 'CComponent'
+    }
+  };
+
   beforeEach(() => {
-    const routes = {
-      ROUTE_A: {
-        component: 'AComponent'
-      },
-      ROUTE_B: {
-        component: 'BComponent'
-      },
-      ROUTE_C: {
-        component: 'CComponent'
-      }
-    };
     initActions(routes);
   });
 
@@ -319,9 +320,15 @@ describe('#reducer', () => {
 
   describe('with tabs', () => {
     it ('should handle tab changed action', () => {
-      const tabsCount = 3;
+      const tabs = [{
+        label: 'Inicio',
+        initialRoute: [routes.ROUTE_A, routes.ROUTE_B]
+      }, {
+        label: 'Inicio2',
+        initialRoute: routes.ROUTE_A
+      }];
       const initialTab = 2;
-      const initAction = actionCreators.initTabs(tabsCount, initialTab);
+      const initAction = actionCreators.initTabs(tabs, initialTab);
       const initialSpecState = reducer(undefined, initAction);
 
       const action = actionCreators.tabChanged(0);
@@ -332,15 +339,24 @@ describe('#reducer', () => {
     });
 
     it ('should handle init tabs action', () => {
-      const tabsCount = 3;
+      const tabs = [{
+        label: 'Inicio',
+        initialRoute: [routes.ROUTE_A, routes.ROUTE_B]
+      }, {
+        label: 'Inicio2',
+        initialRoute: routes.ROUTE_A
+      }, {
+        label: 'Inicio2',
+        initialRoute: [routes.ROUTE_A, routes.ROUTE_A, routes.ROUTE_A, routes.ROUTE_A]
+      }];
       const initialTab = 2;
-      const action = actionCreators.initTabs(tabsCount, initialTab);
+      const action = actionCreators.initTabs(tabs, initialTab);
 
       const expectedState = defaultState.merge({
         0: {
-          routeStack: [],
-          activeRoute: null,
-          method: null
+          routeStack: [routes.ROUTE_A],
+          activeRoute: routes.ROUTE_B,
+          method: 'push'
         },
         1: {
           routeStack: [],
@@ -348,9 +364,9 @@ describe('#reducer', () => {
           method: null
         },
         2: {
-          routeStack: [],
-          activeRoute: null,
-          method: null
+          routeStack: [routes.ROUTE_A, routes.ROUTE_A, routes.ROUTE_A],
+          activeRoute: routes.ROUTE_A,
+          method: 'push'
         },
         activeTabIndex: 2,
         shouldHideTabBar: false
@@ -360,9 +376,18 @@ describe('#reducer', () => {
     });
 
     it ('init tabs action should have no effect if tabs are already initialized', () => {
-      const tabsCount = 3;
+      const tabs = [{
+        label: 'Inicio',
+        initialRoute: [routes.ROUTE_A, routes.ROUTE_B]
+      }, {
+        label: 'Inicio2',
+        initialRoute: routes.ROUTE_A
+      }, {
+        label: 'Inicio2',
+        initialRoute: [routes.ROUTE_A, routes.ROUTE_A, routes.ROUTE_A, routes.ROUTE_A]
+      }];
       const initialTab = 2;
-      const action = actionCreators.initTabs(tabsCount, initialTab);
+      const action = actionCreators.initTabs(tabs, initialTab);
 
       const initialSpecState = reducer(undefined, action);
 

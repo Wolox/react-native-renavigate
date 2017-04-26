@@ -79,13 +79,19 @@ export default function reducer(state = defaultState, { type, payload }) {
         return state;
       }
       const tabsState = {};
-      for (let tabIndex = 0; tabIndex < payload.tabsCount; tabIndex++) {
+      payload.tabs.forEach((tab, tabIndex) => {
+        const routeStack = Array.isArray(tab.initialRoute)
+         ? tab.initialRoute.slice(0, -1)
+         : [];
+        const activeRoute = Array.isArray(tab.initialRoute)
+         ? tab.initialRoute.slice(-1)[0]
+         : null;
         tabsState[tabIndex] = {
-          routeStack: [],
-          activeRoute: null,
-          method: null
+          routeStack,
+          activeRoute,
+          method: Array.isArray(tab.initialRoute) ? 'push' : null
         };
-      }
+      });
       return state.merge({
         ...tabsState,
         activeTabIndex: payload.initialTab,
