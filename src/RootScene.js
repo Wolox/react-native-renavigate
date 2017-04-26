@@ -49,13 +49,13 @@ export default class RootScene extends Component {
     this.nonPopActionTriggered =
       navigationMethod === methodActions.REPLACE || navigationMethod === methodActions.PUSH;
 
+    const navigator = this.getNavigator();
     if (this.props.activeRoute !== activeRoute) {
       const currentRoute = activeRoute
         ? this.props.routeDefs[activeRoute.name](activeRoute.params)
         : this.props.initialRoute;
       this.setState({ currentRoute });
 
-      const navigator = this.getNavigator();
       if (navigationMethod === methodActions.POP || navigationMethod === methodActions.POP_TO_TOP) {
         navigator[navigationMethod]();
       } else if (navigationMethod === methodActions.PUSH ||
@@ -63,6 +63,10 @@ export default class RootScene extends Component {
                  navigationMethod === methodActions.REPLACE) {
         navigator[navigationMethod](currentRoute);
       }
+    } else if ((navigationMethod === methodActions.POP ||
+               navigationMethod === methodActions.POP_TO_TOP) &&
+               this.getNavigator() && this.getNavigator().state.routeStack.length > 1) {
+      navigator[navigationMethod]();
     }
   }
 
@@ -104,13 +108,13 @@ export default class RootScene extends Component {
     this.nonPopActionTriggered = false;
   }
 
-  onWillFocus = () => {
+  onWillFocus = (route) => {
     this.handleRouteChange();
-    return this.props.onWillFocus && this.props.onWillFocus();
+    return this.props.onWillFocus && this.props.onWillFocus(route);
   }
 
-  onDidFocus = () => {
-    return this.props.onDidFocus && this.props.onDidFocus();
+  onDidFocus = (route) => {
+    return this.props.onDidFocus && this.props.onDidFocus(route);
   }
 
   render() {
@@ -158,7 +162,8 @@ RootScene.propTypes = {
   routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
   routeStack: navigationPropTypes.routeStack,
   onWillFocus: React.PropTypes.func,
-  onDidFocus: React.PropTypes.func
+  onDidFocus: React.PropTypes.func,
+  onNavigationTriggered: React.PropTypes.func
 };
 
 RootScene.defaultProps = {

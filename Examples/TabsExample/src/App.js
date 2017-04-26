@@ -56,7 +56,7 @@ const posts = [
 const tabs = [
   {
     label: 'posts1',
-    initialRoute: routeDefs.LIST({ posts })
+    initialRoute: [routeDefs.LIST({ posts }), routeDefs.DETAIL(posts[1]), routeDefs.DETAIL(posts[3]), routeDefs.DETAIL(posts[2]), routeDefs.DETAIL(posts[4])]
   },
   {
     label: 'posts2',

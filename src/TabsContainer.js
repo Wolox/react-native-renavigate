@@ -19,16 +19,21 @@ class TabsContainer extends Component {
   }
 
   shouldHideTabBar = () => {
-    return (this.props.shouldHideTabBar && !this.props.alwaysShowTabBar);
+    const currentTab = this.props.tabs[this.props.activeTabIndex];
+    return (!this.props.alwaysShowTabBar && (this.props.shouldHideTabBar ||
+      (currentTab && Array.isArray(currentTab.initialRoute)
+      && currentTab.initialRoute.indexOf(this.currentRoute) > 0)));
   }
 
-  afterPushView = () => {
+  afterPushView = (route) => {
+    this.currentRoute = route;
     if (this.shouldHideTabBar()) {
       this.setState({ hiddenPad: 0 });
     }
   }
 
-  beforePopView = () => {
+  beforePopView = (route) => {
+    this.currentRoute = route;
     if (!this.shouldHideTabBar()) {
       this.setState({ hiddenPad: this.props.hiddenPad || 0 });
     }
