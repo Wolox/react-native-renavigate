@@ -1,12 +1,11 @@
 import { actions, actionCreators, initActions } from '../src/actions';
 
-const routeDefs = {
-  ROUTE_A: { component: 'RouteAComponent' },
-  ROUTE_B: { component: 'RouteBComponent' }
-};
-
 describe('#initActions', () => {
   beforeEach(() => {
+    const routeDefs = {
+      ROUTE_A: { component: 'RouteAComponent' },
+      ROUTE_B: { component: 'RouteBComponent' }
+    };
     initActions(routeDefs);
   });
   it('should add push action creators', () => {
@@ -107,21 +106,11 @@ describe('#actionCreators', () => {
   });
   describe('initTabs', () => {
     it('should create a initTabs action', () => {
-      const tabs = [{
-        label: 'Inicio',
-        initialRoute: [routeDefs.ROUTE_A, routeDefs.ROUTE_B]
-      }, {
-        label: 'Inicio2',
-        initialRoute: routeDefs.ROUTE_A
-      }, {
-        label: 'Inicio2',
-        initialRoute: [routeDefs.ROUTE_A, routeDefs.ROUTE_A, routeDefs.ROUTE_A, routeDefs.ROUTE_A]
-      }];
       const expectedAction = {
         type: actions.INIT_TABS,
-        payload: { tabs, initialTab: 0 }
+        payload: { tabsCount: 3, initialTab: 0 }
       };
-      expect(actionCreators.initTabs(tabs, 0)).toEqual(expectedAction);
+      expect(actionCreators.initTabs(3, 0)).toEqual(expectedAction);
     });
   });
 });

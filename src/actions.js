@@ -40,7 +40,7 @@ export const actionCreators = {
   pop: () => ({ type: actions.POP }),
   popToTop: () => ({ type: actions.POP_TO_TOP }),
   tabChanged: (tabIndex) => ({ type: actions.TAB_CHANGED, payload: { tabIndex } }),
-  initTabs: (tabs, initialTab) => ({ type: actions.INIT_TABS, payload: { tabs, initialTab } })
+  initTabs: (tabsCount, initialTab) => ({ type: actions.INIT_TABS, payload: { tabsCount, initialTab } })
 };
 
 export function initActions(routeDefs) {

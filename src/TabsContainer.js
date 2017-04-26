@@ -12,9 +12,7 @@ class TabsContainer extends Component {
   constructor(props) {
     super(props);
     this.initialTab = props.activeTabIndex || props.initialTab;
-
-    props.dispatch(actionCreators.initTabs(props.tabs, this.initialTab));
-
+    props.dispatch(actionCreators.initTabs(props.tabs.length, this.initialTab));
     this.state = {
       hiddenPad: this.props.hiddenPad || 0
     };
