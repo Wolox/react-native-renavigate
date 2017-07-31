@@ -2,6 +2,8 @@
 
 #### React native navigation made easy using redux
 
+## This project is no longer maintained. We highly recommend using [react-navigation](https://github.com/react-community/react-navigation) instead.
+
 [![CircleCI](https://circleci.com/gh/Wolox/react-native-renavigate.svg?style=svg)](https://circleci.com/gh/Wolox/react-native-renavigate)
 
 `renavigate` works with [react redux](https://github.com/reactjs/react-redux/) on top of react native's [navigator component](https://facebook.github.io/react-native/docs/navigator.html) to allow an easy navigation management in your react native apps.
