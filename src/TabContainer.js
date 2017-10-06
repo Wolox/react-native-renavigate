@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BackAndroid } from 'react-native';
+import { BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 
 import RootScene from './RootScene';
@@ -27,11 +27,11 @@ class TabContainer extends Component {
   }
 
   addAndroidBackButtonListener() {
-    BackAndroid.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
+    BackHandler.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
   }
 
   removeAndroidBackButtonListener() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
   }
 
   handleAndroidBackButton = () => {
