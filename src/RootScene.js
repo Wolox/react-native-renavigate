@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator } from 'react-native-deprecated-custom-components';
+import { Navigator } from 'react-native-custom-components';
 import PropTypes from 'prop-types';
 
 import { initActions, methodActions, actionCreators } from './actions';
