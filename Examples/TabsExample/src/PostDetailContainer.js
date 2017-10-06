@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { actionCreators } from 'react-native-renavigate';
+import PropTypes from 'prop-types';
 
 class PostDetailContainer extends Component {
 
@@ -45,7 +46,7 @@ class PostDetailContainer extends Component {
 }
 
 PostDetailContainer.propTypes = {
-  text: React.PropTypes.string.isRequired
+  text: PropTypes.string.isRequired
 };
 
 export default connect()(PostDetailContainer);

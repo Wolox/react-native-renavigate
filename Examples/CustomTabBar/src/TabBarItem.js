@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Image, Text } from 'react-native';
+import PropTypes from 'prop-types';
 
 import styles from './TabBarItem.styles';
 
@@ -21,8 +22,8 @@ export default function TabBarItem({ active, label, image, onTabItemPressed }) {
 }
 
 TabBarItem.propTypes = {
-  active: React.PropTypes.bool.isRequired,
-  image: React.PropTypes.any.isRequired,
-  label: React.PropTypes.string.isRequired,
-  onTabItemPressed: React.PropTypes.func.isRequired
+  active: PropTypes.bool.isRequired,
+  image: PropTypes.any.isRequired,
+  label: PropTypes.string.isRequired,
+  onTabItemPressed: PropTypes.func.isRequired
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import TabBarItem from './TabBarItem';
 import styles from './TabBar.styles';
@@ -29,14 +30,14 @@ export default function TabBar ({ style, tabIcons, activeTab, goToPage, tabs, hi
 }
 
 TabBar.propTypes = {
-  activeTab: React.PropTypes.number.isRequired,
-  goToPage: React.PropTypes.func.isRequired,
-  hidden: React.PropTypes.bool,
-  tabIcons: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      imageOff: React.PropTypes.any.isRequired,
-      imageOn: React.PropTypes.any.isRequired
+  activeTab: PropTypes.number.isRequired,
+  goToPage: PropTypes.func.isRequired,
+  hidden: PropTypes.bool,
+  tabIcons: PropTypes.arrayOf(
+    PropTypes.shape({
+      imageOff: PropTypes.any.isRequired,
+      imageOn: PropTypes.any.isRequired
     }).isRequired
   ).isRequired,
-  tabs: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired
 };

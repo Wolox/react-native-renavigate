@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Navigator } from 'react-native';
+import { Navigator } from 'react-native-deprecated-custom-components';
+import PropTypes from 'prop-types';
 
 import { initActions, methodActions, actionCreators } from './actions';
 import { propTypes as navigationPropTypes } from './reducer';
@@ -136,34 +137,34 @@ export default class RootScene extends Component {
   }
 }
 
-export const routeInstancePropType = React.PropTypes.shape({
-  component: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.element
+export const routeInstancePropType = PropTypes.shape({
+  component: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.element
   ]),
-  leftButton: React.PropTypes.func,
-  params: React.PropTypes.object,
-  rightButton: React.PropTypes.func,
-  title: React.PropTypes.func
+  leftButton: PropTypes.func,
+  params: PropTypes.object,
+  rightButton: PropTypes.func,
+  title: PropTypes.func
 });
 
 RootScene.propTypes = {
   activeRoute: navigationPropTypes.activeRoute,
-  decorateRouteComponent: React.PropTypes.func,
-  defaultTransition: React.PropTypes.any,
-  initialRoute: React.PropTypes.oneOfType([
+  decorateRouteComponent: PropTypes.func,
+  defaultTransition: PropTypes.any,
+  initialRoute: PropTypes.oneOfType([
     routeInstancePropType,
-    React.PropTypes.arrayOf(routeInstancePropType)
+    PropTypes.arrayOf(routeInstancePropType)
   ]),
-  navigationBar: React.PropTypes.func,
-  navigationBarStyle: React.PropTypes.func,
+  navigationBar: PropTypes.func,
+  navigationBarStyle: PropTypes.func,
   navigationStyles: Navigator.NavigationBar.propTypes.navigationStyles,
   navigationMethod: navigationPropTypes.method,
-  routeDefs: React.PropTypes.objectOf(React.PropTypes.func.isRequired).isRequired,
+  routeDefs: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
   routeStack: navigationPropTypes.routeStack,
-  onWillFocus: React.PropTypes.func,
-  onDidFocus: React.PropTypes.func,
-  onNavigationTriggered: React.PropTypes.func
+  onWillFocus: PropTypes.func,
+  onDidFocus: PropTypes.func,
+  onNavigationTriggered: PropTypes.func
 };
 
 RootScene.defaultProps = {

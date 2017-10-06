@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, TouchableOpacity, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { actionCreators } from 'react-native-renavigate';
+import PropTypes from 'prop-types';
 
 class PostListContainer extends Component {
 
@@ -40,7 +41,7 @@ class PostListContainer extends Component {
 }
 
 PostListContainer.propTypes = {
-  posts: React.PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired
 };
 
 export default connect()(PostListContainer);

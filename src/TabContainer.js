@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BackAndroid } from 'react-native';
+import PropTypes from 'prop-types';
 
 import RootScene from './RootScene';
 import { actionCreators as navigationActions } from './actions';
@@ -63,7 +64,7 @@ class TabContainer extends Component {
 }
 
 TabContainer.propTypes = {
-  isActiveTab: React.PropTypes.bool,
+  isActiveTab: PropTypes.bool,
   ...RootScene.propTypes
 };
 

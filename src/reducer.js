@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Immutable from 'seamless-immutable';
 
 import { actions, typeToMethod } from './actions';
@@ -104,15 +104,15 @@ export default function reducer(state = defaultState, { type, payload }) {
 }
 /* eslint-enable complexity */
 
-const routePropType = React.PropTypes.shape({
-  name: React.PropTypes.string.isRequired,
-  params: React.PropTypes.object
+const routePropType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  params: PropTypes.object
 });
 
 export const propTypes = {
   activeRoute: routePropType,
-  routeStack: React.PropTypes.arrayOf(routePropType),
-  method: React.PropTypes.string,
+  routeStack: PropTypes.arrayOf(routePropType),
+  method: PropTypes.string,
   activeTabIndex(props, propName) {
     const value = props[propName];
     return Number.isInteger(value) || value === null;

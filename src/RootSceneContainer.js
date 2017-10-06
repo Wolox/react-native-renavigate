@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BackAndroid } from 'react-native';
+import { BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 
 import RootScene from './RootScene';
@@ -9,11 +9,11 @@ import { propTypes as navigationPropTypes } from './reducer';
 class RootSceneContainer extends Component {
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
+    BackHandler.addEventListener('hardwareBackPress', this.handleAndroidBackButton);
   }
 
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleAndroidBackButton);
   }
 
   handleAndroidBackButton = () => {

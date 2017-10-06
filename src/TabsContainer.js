@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 import TabContainer from './TabContainer';
 import RootScene, { routeInstancePropType } from './RootScene';
@@ -109,20 +110,20 @@ TabsContainer.defaultProps = {
 };
 
 TabsContainer.propTypes = {
-  activeTabIndex: React.PropTypes.number,
-  initialTab: React.PropTypes.number.isRequired,
-  tabs: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      initialRoute: React.PropTypes.oneOfType([
+  activeTabIndex: PropTypes.number,
+  initialTab: PropTypes.number.isRequired,
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({
+      initialRoute: PropTypes.oneOfType([
         routeInstancePropType,
-        React.PropTypes.arrayOf(routeInstancePropType)
+        PropTypes.arrayOf(routeInstancePropType)
       ]),
-      label: React.PropTypes.string.isRequired
+      label: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
-  tabsComponentProps: React.PropTypes.shape(ScrollableTabView.propTypes).isRequired,
-  alwaysShowTabBar: React.PropTypes.bool,
-  hiddenPad: React.PropTypes.number,
+  tabsComponentProps: PropTypes.shape(ScrollableTabView.propTypes).isRequired,
+  alwaysShowTabBar: PropTypes.bool,
+  hiddenPad: PropTypes.number,
   ...RootScene.propTypes
 };
 

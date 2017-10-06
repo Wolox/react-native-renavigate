@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { actionCreators } from 'react-native-renavigate';
@@ -39,10 +40,10 @@ class PostDetail extends Component {
 }
 
 PostDetail.propTypes = {
-  post: React.PropTypes.shape({
-    id: React.PropTypes.number.isRequired,
-    text: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
   }).isRequired
 };
 
