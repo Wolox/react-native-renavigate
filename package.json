@@ -43,7 +43,7 @@
   "dependencies": {
     "prop-types": "^15.6.0",
     "react-native-custom-components": "git://github.com/facebookarchive/react-native-custom-components.git",
-    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-scrollable-tab-view": "git://github.com/Wolox/react-native-scrollable-tab-view.git",
     "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {
